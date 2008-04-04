@@ -4,10 +4,15 @@ CapBot
 Introduction goes here.
 
 
+
 Example
 =======
 
 Example goes here.
 
+Issues
+======
+Totally untested and probably won't work on non *nix platform -- patches welcome!
 
-Copyright (c) 2008 [name of plugin creator], released under the MIT license
+
+Copyright (c) 2008 Relevance, Inc., released under the MIT license

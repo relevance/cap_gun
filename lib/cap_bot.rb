@@ -25,7 +25,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 # Then when you deploy, you can optionally include comments:
 #   cap -s comment="fix for bug #303" deploy
 #
-module Capinator
+module CapGun
 
   module Helper
     
@@ -55,7 +55,7 @@ module Capinator
   end
   
     class Mailer < ActionMailer::Base
-      include Capinator::Helper
+      include CapGun::Helper
       DEFAULT_SENDER = %("Capinator" <capinator@example.com>)
 
       @@email_prefix = "[DEPLOY] "
