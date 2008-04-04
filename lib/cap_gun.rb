@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 
 # Tell everyone about your releases!
 # 
-# You must set up your mail settings in config/capinator_config.yml.  We include
+# You must set up your mail settings in config/cap_gun_config.yml.  We include
 # the ActionMailer hack to play nice with gmail, so thats a super easy way 
 # to do this without setting up your own MTA.
 #
@@ -12,15 +12,15 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 #
 # Want to just shoot everyone an email about the latest status?
 #
-#   cap capinator:email
+#   cap cap_gun:email
 # 
 # Include comments?
 #
-#   cap -s comment="hi mom" capinator:email
+#   cap -s comment="hi mom" cap_gun:email
 #
 # Enable emails after every deploy by adding this to your deploy.rb:
 # 
-#   after "deploy", "capinator:email"
+#   after "deploy", "cap_gun:email"
 #
 # Then when you deploy, you can optionally include comments:
 #   cap -s comment="fix for bug #303" deploy
@@ -30,7 +30,7 @@ module CapGun
   module Helper
     
     def load_mailer_config
-      mailer_config = File.open("#{rails_root}/config/capinator_config.yml")
+      mailer_config = File.open("#{rails_root}/config/cap_gun_config.yml")
       mailer_options = YAML.load(mailer_config)
       ActionMailer::Base.smtp_settings = mailer_options
     end
@@ -56,13 +56,13 @@ module CapGun
   
     class Mailer < ActionMailer::Base
       include CapGun::Helper
-      DEFAULT_SENDER = %("Capinator" <capinator@example.com>)
+      DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
 
       @@email_prefix = "[DEPLOY] "
       cattr_accessor :email_prefix
       
       def deployment_notification(capistrano)
-        options = capistrano[:capinator_options]
+        options = capistrano[:cap_gun_options]
         
         content_type "text/plain"
         subject "#{email_prefix} #{capistrano[:application]} deployed to #{capistrano[:rails_env]}"
@@ -99,7 +99,7 @@ if Object.const_defined?("Capistrano")
 
   Capistrano::Configuration.instance(:must_exist).load do
 
-    namespace :capinator do
+    namespace :cap_gun do
       desc "Get the time zone from the server"
       task :get_timezone, :roles => :app do
         set "timezone", capture('date "+%Z"').strip
@@ -107,13 +107,13 @@ if Object.const_defined?("Capistrano")
       
       desc "Send notification via email"
       task :email do
-        Capinator::Helper.load_mailer_config
-        Capinator::Mailer.deliver_deployment_notification(self)
+        CapGun::Helper.load_mailer_config
+        CapGun::Mailer.deliver_deployment_notification(self)
       end
 
     end
     
-    before "capinator:email", "capinator:get_timezone"
+    before "cap_gun:email", "cap_gun:get_timezone"
     
   end
 end

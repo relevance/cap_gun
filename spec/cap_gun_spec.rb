@@ -4,7 +4,7 @@ require 'test/unit'
 require 'test/spec'
 require 'mocha'
 require 'net/smtp'
-require File.join(File.dirname(__FILE__), *%w[.. lib cap_bot])
+require File.join(File.dirname(__FILE__), *%w[.. lib cap_gun])
 
 describe "CapGun" do
   it "uses action mailer hack" do
