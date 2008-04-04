@@ -29,33 +29,32 @@ module CapGun
 
   module Helper
     
+    # Loads ActionMailer settings from a Capistrano variable called "cap_gun_action_mailer_config"
     def load_mailer_config(cap) 
-      #mailer_config = File.open("#{rails_root}/config/cap_gun_config.yml")
-      #mailer_options = YAML.load(mailer_config)
       raise ArgumentError, "You must define ActionMailer settings in 'cap_gun_action_mailer_config'" unless cap.cap_gun_action_mailer_config 
       ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
     end
   
-    # Capistrano doesn't set this for some reason
-    def rails_root
-      Object.const_set("RAILS_ROOT", File.expand_path(File.join(File.dirname(__FILE__), *%w[.. .. .. ..]))) unless Object.const_defined?("RAILS_ROOT")
-      RAILS_ROOT
-    end
-  
+    # Current user - unsupported on Windows 
     def current_user
-      `id -un`.strip
+      platform.include?('mswin') ? nil : `id -un`.strip
+    end
+    
+    def platform
+      RUBY_PLATFORM
     end
   
     def time_from_release(path, timezone)
-      timestamp = path[(path.rindex("/") + 1)..-1]
-      datetime = DateTime.parse(timestamp)
+      match = path.match(/(\d+)$/)
+      return unless match
+      datetime = DateTime.parse(match[1])
       datetime.strftime("%B #{datetime.day.ordinalize}, %Y %l:%M %p #{timezone}").gsub(/\s+/, ' ').strip
     end
     
     extend self
   end
   
-    class Mailer < ActionMailer::Base
+  class Mailer < ActionMailer::Base
       include CapGun::Helper
       DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
 
@@ -71,7 +70,11 @@ module CapGun
         recipients options[:recipients]
         from       options[:sender_address] || DEFAULT_SENDER
 
-        body       <<-EOL
+        body       create_body(capistrano)
+      end
+      
+      def create_body(capistrano)
+<<-EOL
 #{capistrano[:application]} was deployed to #{capistrano[:rails_env]} by #{current_user} at #{time_from_release(capistrano[:current_release], capistrano[:timezone])}.
 
 Comment: #{capistrano[:comment] || "[none given]"}
@@ -90,9 +93,7 @@ Repository: #{capistrano[:repository]}
 Deploy path: #{capistrano[:deploy_to]}
 EOL
       end
-
     end
-  
 
 end
 
