@@ -29,10 +29,11 @@ module CapGun
 
   module Helper
     
-    def load_mailer_config
-      mailer_config = File.open("#{rails_root}/config/cap_gun_config.yml")
-      mailer_options = YAML.load(mailer_config)
-      ActionMailer::Base.smtp_settings = mailer_options
+    def load_mailer_config(cap) 
+      #mailer_config = File.open("#{rails_root}/config/cap_gun_config.yml")
+      #mailer_options = YAML.load(mailer_config)
+      raise ArgumentError, "You must define ActionMailer settings in 'cap_gun_action_mailer_config'" unless cap.cap_gun_action_mailer_config 
+      ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
     end
   
     # Capistrano doesn't set this for some reason

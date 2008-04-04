@@ -5,14 +5,14 @@ require 'rake/rdoctask'
 desc 'Default: run unit tests.'
 task :default => :test
 
-desc 'Test the cap_bot plugin.'
+desc 'Test the cap_gun plugin.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.pattern = 'spec/**/*_spec.rb'
   t.verbose = true
 end
 
-desc 'Generate documentation for the cap_bot plugin.'
+desc 'Generate documentation for the cap_gun plugin.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'CapGun'
