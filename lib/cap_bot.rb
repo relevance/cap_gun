@@ -1,0 +1,119 @@
+require 'active_support'
+require 'action_mailer'
+require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib smtp_tls])
+
+# Tell everyone about your releases!
+# 
+# You must set up your mail settings in config/capinator_config.yml.  We include
+# the ActionMailer hack to play nice with gmail, so thats a super easy way 
+# to do this without setting up your own MTA.
+#
+# Example:
+#
+# Want to just shoot everyone an email about the latest status?
+#
+#   cap capinator:email
+# 
+# Include comments?
+#
+#   cap -s comment="hi mom" capinator:email
+#
+# Enable emails after every deploy by adding this to your deploy.rb:
+# 
+#   after "deploy", "capinator:email"
+#
+# Then when you deploy, you can optionally include comments:
+#   cap -s comment="fix for bug #303" deploy
+#
+module Capinator
+
+  module Helper
+    
+    def load_mailer_config
+      mailer_config = File.open("#{rails_root}/config/capinator_config.yml")
+      mailer_options = YAML.load(mailer_config)
+      ActionMailer::Base.smtp_settings = mailer_options
+    end
+  
+    # Capistrano doesn't set this for some reason
+    def rails_root
+      Object.const_set("RAILS_ROOT", File.expand_path(File.join(File.dirname(__FILE__), *%w[.. .. .. ..]))) unless Object.const_defined?("RAILS_ROOT")
+      RAILS_ROOT
+    end
+  
+    def current_user
+      `id -un`.strip
+    end
+  
+    def time_from_release(path, timezone)
+      timestamp = path[(path.rindex("/") + 1)..-1]
+      datetime = DateTime.parse(timestamp)
+      datetime.strftime("%B #{datetime.day.ordinalize}, %Y %l:%M %p #{timezone}").gsub(/\s+/, ' ').strip
+    end
+    
+    extend self
+  end
+  
+    class Mailer < ActionMailer::Base
+      include Capinator::Helper
+      DEFAULT_SENDER = %("Capinator" <capinator@example.com>)
+
+      @@email_prefix = "[DEPLOY] "
+      cattr_accessor :email_prefix
+      
+      def deployment_notification(capistrano)
+        options = capistrano[:capinator_options]
+        
+        content_type "text/plain"
+        subject "#{email_prefix} #{capistrano[:application]} deployed to #{capistrano[:rails_env]}"
+
+        recipients options[:recipients]
+        from       options[:sender_address] || DEFAULT_SENDER
+
+        body       <<-EOL
+#{capistrano[:application]} was deployed to #{capistrano[:rails_env]} by #{current_user} at #{time_from_release(capistrano[:current_release], capistrano[:timezone])}.
+
+Comment: #{capistrano[:comment] || "[none given]"}
+
+Nerd details
+============
+Release: #{capistrano[:current_release]}
+Release Time: #{time_from_release(capistrano[:current_release], capistrano[:timezone])}
+Release Revision: #{capistrano[:current_revision]}
+
+Previous Release: #{capistrano[:previous_release]}
+Previous Release Time: #{time_from_release(capistrano[:previous_release], capistrano[:timezone])}
+Previous Release Revision: #{capistrano[:previous_revision]}
+
+Repository: #{capistrano[:repository]}
+Deploy path: #{capistrano[:deploy_to]}
+EOL
+      end
+
+    end
+  
+
+end
+
+if Object.const_defined?("Capistrano")
+
+  Capistrano::Configuration.instance(:must_exist).load do
+
+    namespace :capinator do
+      desc "Get the time zone from the server"
+      task :get_timezone, :roles => :app do
+        set "timezone", capture('date "+%Z"').strip
+      end
+      
+      desc "Send notification via email"
+      task :email do
+        Capinator::Helper.load_mailer_config
+        Capinator::Mailer.deliver_deployment_notification(self)
+      end
+
+    end
+    
+    before "capinator:email", "capinator:get_timezone"
+    
+  end
+end
