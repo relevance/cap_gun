@@ -8,7 +8,7 @@ task :default => :test
 desc 'Test the cap_bot plugin.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
-  t.pattern = 'test/**/*_test.rb'
+  t.pattern = 'spec/**/*_spec.rb'
   t.verbose = true
 end
 
