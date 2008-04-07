@@ -23,10 +23,23 @@ describe "CapGun" do
     end
   
     it "gets action mailer config from capistrano" do
-      capistrano = stub(:cap_gun_action_mailer_config => {:account => "foo@gmail.com", :password => "password"})
+      capistrano = stub(:cap_gun_action_mailer_config => {:account => "foo@gmail.com", :password => "password"}, :exists? => true, :cap_gun_options => {:recipients => "foo"})
       CapGun::Helper.load_mailer_config(capistrano)
       ActionMailer::Base.smtp_settings.should == {:account => "foo@gmail.com", :password => "password"}
     end
+    
+    it "raises if we have no cap gun options" do
+      capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :exists? => false)
+      lambda { CapGun::Helper.load_mailer_config capistrano }.should.raise(ArgumentError)
+    end
+    
+    it "raises if we dont have at least one recipient" do
+      capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_options => {})
+      lambda { CapGun::Helper.load_mailer_config capistrano }.should.raise(ArgumentError)
+      capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_options => {:recipients => []})
+      lambda { CapGun::Helper.load_mailer_config capistrano }.should.raise(ArgumentError)
+    end
+    
   end
   
   describe "misc helpers" do
@@ -53,11 +66,8 @@ describe "CapGun" do
   end
   
   describe "Mailer" do
-    it "raises if we dont have at least one recipient" do
-    end
-    
     it "passes capistrano into create body" do
-      capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_options => {:recipients => "joe@example.com"} }
+      capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_options => {:recipients => ["joe@example.com"]} }
       CapGun::Mailer.any_instance.expects(:create_body).with(capistrano).returns("foo")
       CapGun::Mailer.create_deployment_notification capistrano
       

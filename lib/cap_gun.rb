@@ -32,6 +32,8 @@ module CapGun
     # Loads ActionMailer settings from a Capistrano variable called "cap_gun_action_mailer_config"
     def load_mailer_config(cap) 
       raise ArgumentError, "You must define ActionMailer settings in 'cap_gun_action_mailer_config'" unless cap.cap_gun_action_mailer_config 
+      raise ArgumentError, "Need at least one recipient." if !cap.exists?(:cap_gun_options) || cap.cap_gun_options[:recipients].blank?
+      
       ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
     end
   
