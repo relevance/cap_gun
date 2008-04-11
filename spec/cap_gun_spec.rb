@@ -57,11 +57,11 @@ describe "CapGun" do
     end
     
     it "returns nil for weird release path" do
-      humanize_release_time("/data/foo/my_release", "PDT").should == nil
+      humanize_release_time("/data/foo/my_release").should == nil
     end
     
     it "parse datetime from release path" do
-      humanize_release_time("/data/foo/releases/20080402152141", "PDT").should == "April 2nd, 2008 3:21 PM PDT"
+      humanize_release_time("/data/foo/releases/20080402152141").should == "April 2nd, 2008 3:21 PM +00:00"
     end
     
   end

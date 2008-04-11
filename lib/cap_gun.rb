@@ -48,11 +48,14 @@ module CapGun
       RUBY_PLATFORM
     end
   
-    def humanize_release_time(path, timezone)
+    # Assuming the standard Capistrano timestamp directory, gives you a prettier date time for output
+    # This does not take into account anything to do with timezones, but I believe Capistrano always 
+    # uses UTC so we could convert to a specified time zone for even friendlier display.
+    def humanize_release_time(path)
       match = path.match(/(\d+)$/)
       return unless match
       datetime = DateTime.parse(match[1])
-      datetime.strftime("%B #{datetime.day.ordinalize}, %Y %l:%M %p #{timezone}").gsub(/\s+/, ' ').strip
+      datetime.strftime("%B #{datetime.day.ordinalize}, %Y %l:%M %p %Z").gsub(/\s+/, ' ').strip
     end
     
     extend self
@@ -64,40 +67,39 @@ module CapGun
       DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
       DEFAULT_EMAIL_PREFIX = "[DEPLOY] "
       
-      attr_accessor :email_prefix
+      adv_attr_accessor :email_prefix
       
-      # Grab the options for emaililng from cap_gun_email_envelope
+      # Grab the options for emaililng from cap_gun_email_envelope (should be set in your deploy file)
       def init(envelope = {})
         recipients envelope[:recipients]
-        from envelope[:from] || DEFAULT_SENDER
-        email_prefix = (envelope[:email_prefix] || DEFAULT_EMAIL_PREFIX)
-        
+        from (envelope[:from] || DEFAULT_SENDER)
+        email_prefix (envelope[:email_prefix] || DEFAULT_EMAIL_PREFIX)
       end
       
+      # Do the actual email
       def deployment_notification(capistrano)
-        content_type "text/plain"
-        
         init(capistrano[:cap_gun_email_envelope])
         
+        content_type "text/plain"
         subject "#{email_prefix} #{capistrano[:application]} deployed to #{capistrano[:rails_env]}"
-
-        body       create_body(capistrano)
+        body    create_body(capistrano)
       end
       
+      # Create the body of the message using a bunch of values from Capistrano
       def create_body(capistrano)
 <<-EOL
-#{capistrano[:application]} was deployed to #{capistrano[:rails_env]} by #{current_user} at #{humanize_release_time(capistrano[:current_release], capistrano[:timezone])}.
+#{capistrano[:application]} was deployed to #{capistrano[:rails_env]} by #{current_user} at #{humanize_release_time(capistrano[:current_release])}.
 
 Comment: #{capistrano[:comment] || "[none given]"}
 
 Nerd details
 ============
 Release: #{capistrano[:current_release]}
-Release Time: #{humanize_release_time(capistrano[:current_release], capistrano[:timezone])}
+Release Time: #{humanize_release_time(capistrano[:current_release])}
 Release Revision: #{capistrano[:current_revision]}
 
 Previous Release: #{capistrano[:previous_release]}
-Previous Release Time: #{humanize_release_time(capistrano[:previous_release], capistrano[:timezone])}
+Previous Release Time: #{humanize_release_time(capistrano[:previous_release])}
 Previous Release Revision: #{capistrano[:previous_revision]}
 
 Repository: #{capistrano[:repository]}
@@ -113,7 +115,7 @@ if Object.const_defined?("Capistrano")
   Capistrano::Configuration.instance(:must_exist).load do
 
     namespace :cap_gun do
-      desc "Send notification via email"
+      desc "Send notification of the current release and the previous release via email."
       task :email do
         CapGun::Helper.load_mailer_config(self)
         CapGun::Mailer.deliver_deployment_notification(self)
