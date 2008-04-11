@@ -10,6 +10,27 @@ Setup and configuration are done entirely inside your deploy.rb file to KISS.  Y
 
 We include the Net::SMTP TLS hack inside as a vendor'ed dependancy to allow super easy email sending without setting up an MTA.
 
+== CONFIG
+
+In your deploy.rb:
+
+    # setup action mailer with a hash of options
+    set :cap_gun_action_mailer_config, {
+      :address => "smtp.gmail.com",
+      :port => 587,
+      :user_name => "[YOUR_USRENAME]@gmail.com",
+      :password => "[YOUR_PASSWORD]",
+      :authentication => :plain 
+    }
+
+    # define the options for the actual emails that go out -- :recipients is the only required option
+    set :cap_gun_email_envelope, { :recipients => %w[joe@example.com, joe2@example.com] }
+    
+    # register email as a callback after restart
+    after "deploy:restart", "cap_gun:email"
+    
+    # Test everything out by doing "cap cap_gun:email"
+
 == REQUIREMENTS:
 
 * Capistrano 2+
