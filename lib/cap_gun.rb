@@ -111,7 +111,7 @@ if Object.const_defined?("Capistrano")
       
       desc "Send notification via email"
       task :email do
-        CapGun::Helper.load_mailer_config
+        CapGun::Helper.load_mailer_config(self)
         CapGun::Mailer.deliver_deployment_notification(self)
       end
 
