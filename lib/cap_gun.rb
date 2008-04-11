@@ -33,7 +33,7 @@ module CapGun
     # Loads ActionMailer settings from a Capistrano variable called "cap_gun_action_mailer_config"
     def load_mailer_config(cap) 
       raise ArgumentError, "You must define ActionMailer settings in 'cap_gun_action_mailer_config'" unless cap.cap_gun_action_mailer_config 
-      raise ArgumentError, "Need at least one recipient." if !cap.exists?(:cap_gun_options) || cap.cap_gun_options[:recipients].blank?
+      raise ArgumentError, "Need at least one recipient." if !cap.exists?(:cap_gun_email_envelope) || cap[:cap_gun_email_envelope][:recipients].blank?
       
       ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
     end
@@ -43,11 +43,12 @@ module CapGun
       platform.include?('mswin') ? nil : `id -un`.strip
     end
     
+    # stub hook purposes only
     def platform
       RUBY_PLATFORM
     end
   
-    def time_from_release(path, timezone)
+    def humanize_release_time(path, timezone)
       match = path.match(/(\d+)$/)
       return unless match
       datetime = DateTime.parse(match[1])
@@ -65,7 +66,7 @@ module CapGun
       cattr_accessor :email_prefix
       
       def deployment_notification(capistrano)
-        options = capistrano[:cap_gun_options]
+        options = capistrano[:cap_gun_email_envelope]
         
         content_type "text/plain"
         subject "#{email_prefix} #{capistrano[:application]} deployed to #{capistrano[:rails_env]}"
@@ -78,18 +79,18 @@ module CapGun
       
       def create_body(capistrano)
 <<-EOL
-#{capistrano[:application]} was deployed to #{capistrano[:rails_env]} by #{current_user} at #{time_from_release(capistrano[:current_release], capistrano[:timezone])}.
+#{capistrano[:application]} was deployed to #{capistrano[:rails_env]} by #{current_user} at #{humanize_release_time(capistrano[:current_release], capistrano[:timezone])}.
 
 Comment: #{capistrano[:comment] || "[none given]"}
 
 Nerd details
 ============
 Release: #{capistrano[:current_release]}
-Release Time: #{time_from_release(capistrano[:current_release], capistrano[:timezone])}
+Release Time: #{humanize_release_time(capistrano[:current_release], capistrano[:timezone])}
 Release Revision: #{capistrano[:current_revision]}
 
 Previous Release: #{capistrano[:previous_release]}
-Previous Release Time: #{time_from_release(capistrano[:previous_release], capistrano[:timezone])}
+Previous Release Time: #{humanize_release_time(capistrano[:previous_release], capistrano[:timezone])}
 Previous Release Revision: #{capistrano[:previous_revision]}
 
 Repository: #{capistrano[:repository]}
@@ -105,20 +106,12 @@ if Object.const_defined?("Capistrano")
   Capistrano::Configuration.instance(:must_exist).load do
 
     namespace :cap_gun do
-      desc "Get the time zone from the server"
-      task :get_timezone, :roles => :app do
-        set "timezone", capture('date "+%Z"').strip
-      end
-      
       desc "Send notification via email"
       task :email do
         CapGun::Helper.load_mailer_config(self)
         CapGun::Mailer.deliver_deployment_notification(self)
       end
-
     end
-    
-    before "cap_gun:email", "cap_gun:get_timezone"
     
   end
 end
