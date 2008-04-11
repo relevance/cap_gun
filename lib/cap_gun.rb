@@ -26,6 +26,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 #   cap -s comment="fix for bug #303" deploy
 #
 module CapGun
+  VERSION = '0.0.1'
 
   module Helper
     
