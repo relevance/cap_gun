@@ -99,8 +99,3 @@ describe "CapGun" do
   end
   
 end
-
-
-# deploy.rb
-# set "cap_gun_action_mailer_config", { hash of action mailer settings }
-# set "cap_gun_options", {:recipients => "foo"}
