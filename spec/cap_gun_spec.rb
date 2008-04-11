@@ -67,13 +67,35 @@ describe "CapGun" do
   end
   
   describe "Mailer" do
+    
     it "passes capistrano into create body" do
       capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_email_envelope => {:recipients => ["joe@example.com"]} }
       CapGun::Mailer.any_instance.expects(:create_body).with(capistrano).returns("foo")
       CapGun::Mailer.create_deployment_notification capistrano
       
     end
+  end
+  
+  describe "Mail envelope" do
+    before { CapGun::Mailer.any_instance.stubs(:create_body).returns("email body!") }
     
+    it "gets recipients from email envelope" do
+      capistrano = { :cap_gun_email_envelope => { :recipients => ["foo@here.com", "bar@here.com"] } }
+      mail = CapGun::Mailer.create_deployment_notification capistrano
+      mail.to.should == ["foo@here.com", "bar@here.com"]
+    end
+
+    it "should have a default sender" do
+      capistrano = { :cap_gun_email_envelope => { :recipients => "foo@here.com" } }
+      mail = CapGun::Mailer.create_deployment_notification capistrano
+      mail.from.should == ["cap_gun@example.com"]
+    end
+    
+    it "should override sender from email envelope" do
+      capistrano = { :cap_gun_email_envelope => { :from => "booyakka!@example.com", :recipients => ["foo@here.com", "bar@here.com"] } }
+      mail = CapGun::Mailer.create_deployment_notification capistrano
+      mail.from.should == ["booyakka!@example.com"]
+    end
   end
   
 end

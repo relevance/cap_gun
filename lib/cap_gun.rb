@@ -2,10 +2,9 @@ require 'active_support'
 require 'action_mailer'
 require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib smtp_tls])
 
-# Tell everyone about your releases!
+# Tell everyone about your releases!  Send email notification after Capistrano deployments!  Rule the world!
 # 
-# You must set up your mail settings in config/cap_gun_config.yml.  We include
-# the ActionMailer hack to play nice with gmail, so thats a super easy way 
+# We include the ActionMailer hack to play nice with gmail, so thats a super easy way 
 # to do this without setting up your own MTA.
 #
 # Example:
@@ -22,7 +21,8 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 # 
 #   after "deploy", "cap_gun:email"
 #
-# Then when you deploy, you can optionally include comments:
+# Now, next time you deploy, you can optionally include comments:
+#
 #   cap -s comment="fix for bug #303" deploy
 #
 module CapGun
@@ -58,21 +58,28 @@ module CapGun
     extend self
   end
   
+  # This mailer is configued with a capistrano variable called "cap_gun_email_envelope"
   class Mailer < ActionMailer::Base
       include CapGun::Helper
       DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
-
-      @@email_prefix = "[DEPLOY] "
-      cattr_accessor :email_prefix
+      DEFAULT_EMAIL_PREFIX = "[DEPLOY] "
+      
+      attr_accessor :email_prefix
+      
+      # Grab the options for emaililng from cap_gun_email_envelope
+      def init(envelope = {})
+        recipients envelope[:recipients]
+        from envelope[:from] || DEFAULT_SENDER
+        email_prefix = (envelope[:email_prefix] || DEFAULT_EMAIL_PREFIX)
+        
+      end
       
       def deployment_notification(capistrano)
-        options = capistrano[:cap_gun_email_envelope]
-        
         content_type "text/plain"
+        
+        init(capistrano[:cap_gun_email_envelope])
+        
         subject "#{email_prefix} #{capistrano[:application]} deployed to #{capistrano[:rails_env]}"
-
-        recipients options[:recipients]
-        from       options[:sender_address] || DEFAULT_SENDER
 
         body       create_body(capistrano)
       end
