@@ -1,16 +1,7 @@
 require 'autotest/menu'
-require 'log_buddy'
-LogBuddy.init
-include LogBuddy::Mixin
 
 Autotest.add_hook :initialize do |at|
   at.clear_mappings
-  # at.add_mapping(/^lib\/(.*)\.rb$/) { |filename, m|
-  #   d "this one works!"
-  #   file = File.basename(filename).gsub("_", "_?").gsub(".rb", "")
-  #   foo = at.files_matching %r%^test/.*#{file}_test.rb$%
-  #   foo
-  # }
   
   at.add_mapping(%r%lib/(.*)\.rb$%) { |filename, match|
     at.files_matching %r%^spec/#{match[1]}.*\.rb$%
