@@ -6,12 +6,12 @@ require 'echoe'
 require './lib/cap_gun.rb'
 
 hoe = Echoe.new('cap_gun') do |p|
-  p.version = CapGun::VERSION
   p.rubyforge_name = 'thinkrelevance'
   p.author = ["Rob Sanheim", "Relevance"]
   p.email = 'opensource@thinkrelevance.com'
+  p.version = CapGun::VERSION
   p.summary = "Bang! You're deployed!"
-  p.description = ''#p.paragraphs_of('README.rdoc', 2..5).join("\n\n")
+  p.description = 'Super simple capistrano deployments.'
   p.url = "http://opensource.thinkrelevance.com/wiki/cap_gun"
   p.changes = 'foo'
   p.rdoc_pattern = /^(lib|bin|ext)|txt|rdoc$/
