@@ -2,19 +2,22 @@
 ENV['RUBY_FLAGS'] = "-I#{%w(lib ext bin test).join(File::PATH_SEPARATOR)}"
 
 require 'rubygems'
-require 'hoe'
+require 'echoe'
 require './lib/cap_gun.rb'
 
-hoe = Hoe.new('cap_gun', CapGun::VERSION) do |p|
+hoe = Echoe.new('cap_gun') do |p|
+  p.version = CapGun::VERSION
   p.rubyforge_name = 'thinkrelevance'
   p.author = ["Rob Sanheim", "Relevance"]
   p.email = 'opensource@thinkrelevance.com'
   p.summary = "Bang! You're deployed!"
-  p.description = p.paragraphs_of('README.rdoc', 2..5).join("\n\n")
-  p.url = p.paragraphs_of('README.rdoc', 0).first.split(/\n/)[1..-1]
-  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
+  p.description = ''#p.paragraphs_of('README.rdoc', 2..5).join("\n\n")
+  p.url = "http://opensource.thinkrelevance.com/wiki/cap_gun"
+  p.changes = 'foo'
   p.rdoc_pattern = /^(lib|bin|ext)|txt|rdoc$/
-  p.test_globs = 'spec/**/*_spec.rb'
+  p.rdoc_template = 'allison'
+  p.test_pattern = 'spec/**/*_spec.rb'
+  p.manifest_name = 'manifest.txt'
 end
 
 # Override RDoc to use allison template, and also use our .rdoc README as the main page instead of the default README.txt
