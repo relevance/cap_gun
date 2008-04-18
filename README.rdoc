@@ -12,7 +12,7 @@ We include the Net::SMTP TLS hack inside as a vendored dependancy to allow super
 
 == CONFIG
 
-In deploy.rb:
+In your Capistrano config file (usually deploy.rb):
 
     # setup action mailer with a hash of options
     set :cap_gun_action_mailer_config, {
@@ -37,14 +37,16 @@ In deploy.rb:
 * A Gmail account to send from, or an MTA installed locally to send from
 * Something to deploy
 
-== ISSUES
+== TODO & KNOWN ISSUES
 
 * displays the release times in UTC (Capistrano default) - could be flipped to specified time zone
 * some stuff will probably break on windows
 
 == INSTALL
 
-* sudo gem install cap_gun
+* sudo gem install cap_gun  and gem unpack into your vendor/plugins
+* or just grab the tarball from github (see below)
+
 
 == URLS
 
