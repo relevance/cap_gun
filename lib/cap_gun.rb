@@ -54,8 +54,8 @@ module CapGun
     def humanize_release_time(path)
       match = path.match(/(\d+)$/)
       return unless match
-      datetime = DateTime.parse(match[1])
-      datetime.strftime("%B #{datetime.day.ordinalize}, %Y %l:%M %p %Z").gsub(/\s+/, ' ').strip
+      time = Time.parse(match[1])
+      time.strftime("%B #{time.day.ordinalize}, %Y %l:%M %p %Z").gsub(/\s+/, ' ').strip
     end
     
     extend self

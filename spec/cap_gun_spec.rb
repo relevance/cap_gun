@@ -61,7 +61,7 @@ describe "CapGun" do
     end
     
     it "parse datetime from release path" do
-      humanize_release_time("/data/foo/releases/20080402152141").should == "April 2nd, 2008 3:21 PM +00:00"
+      humanize_release_time("/data/foo/releases/20080402152141").should == "April 2nd, 2008 3:21 PM EDT"
     end
     
   end
