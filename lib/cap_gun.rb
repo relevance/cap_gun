@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 
 # Tell everyone about your releases!  Send email notification after Capistrano deployments!  Rule the world!
 # 
-# We include the ActionMailer hack to play nice with gmail, so thats a super easy way 
+# We include the ActionMailer hack to play nice with Gmail, so that's a super easy way 
 # to do this without setting up your own MTA.
 #
 # Example:
@@ -48,7 +48,7 @@ module CapGun
       RUBY_PLATFORM
     end
   
-    # Assuming the standard Capistrano timestamp directory, gives you a prettier date time for output
+    # Assuming the standard Capistrano timestamp directory, gives you a prettier date/time for output.
     # This does not take into account anything to do with timezones, but I believe Capistrano always 
     # uses UTC so we could convert to a specified time zone for even friendlier display.
     def humanize_release_time(path)
@@ -61,7 +61,7 @@ module CapGun
     extend self
   end
   
-  # This mailer is configued with a capistrano variable called "cap_gun_email_envelope"
+  # This mailer is configured with a capistrano variable called "cap_gun_email_envelope"
   class Mailer < ActionMailer::Base
       include CapGun::Helper
       DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)

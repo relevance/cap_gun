@@ -1,48 +1,48 @@
 = CapGun
   
-== DESCRIPTION:
+== DESCRIPTION
 
 Tell everyone about your releases!  Send email notification after Capistrano deployments!  Rule the world!
 
-Drop your ActionMailer config into your deploy.rb, config who should get notifications, and setup the callback task.
+Drop your ActionMailer configuration information into your deploy.rb file, configure recipients for the deployment notifications, and setup the callback task.
 
-Setup and configuration are done entirely inside your deploy.rb file to KISS.  Your emails are sent locally, from the box that is deployed, but do query the server for release info.
+Setup and configuration are done entirely inside your deploy.rb file to KISS.  Your emails are sent locally, from the box performing the deployment, but CapGun queries the server to grab the necessary release info.
 
-We include the Net::SMTP TLS hack inside as a vendor'ed dependancy to allow super easy email sending without setting up an MTA.
+We include the Net::SMTP TLS hack inside as a vendored dependancy to allow super easy email sending without setting up an MTA.
 
 == CONFIG
 
-In your deploy.rb:
+In deploy.rb:
 
     # setup action mailer with a hash of options
     set :cap_gun_action_mailer_config, {
       :address => "smtp.gmail.com",
       :port => 587,
-      :user_name => "[YOUR_USRENAME]@gmail.com",
+      :user_name => "[YOUR_USERNAME]@gmail.com",
       :password => "[YOUR_PASSWORD]",
       :authentication => :plain 
     }
 
     # define the options for the actual emails that go out -- :recipients is the only required option
-    set :cap_gun_email_envelope, { :recipients => %w[joe@example.com, joe2@example.com] }
+    set :cap_gun_email_envelope, { :recipients => %w[joe@example.com, jane@example.com] }
     
     # register email as a callback after restart
     after "deploy:restart", "cap_gun:email"
     
-    # Test everything out by doing "cap cap_gun:email"
+    # Test everything out by running "cap cap_gun:email"
 
-== REQUIREMENTS:
+== REQUIREMENTS
 
 * Capistrano 2+
-* A gmail account to send from, or an MTA installed locally to send from
+* A Gmail account to send from, or an MTA installed locally to send from
 * Something to deploy
 
 == ISSUES
 
-* displays the release times in UTC (Capistrano default) - could be flipped to specified timezone
+* displays the release times in UTC (Capistrano default) - could be flipped to specified time zone
 * some stuff will probably break on windows
 
-== INSTALL:
+== INSTALL
 
 * sudo gem install cap_gun
 
@@ -53,7 +53,7 @@ In your deploy.rb:
 * Git clone Source: git://github.com/relevance/cap_gun.git
 * RDocs: http://thinkrelevance.rubyforge.org/cap_gun/
 
-== LICENSE:
+== LICENSE
 
 (The MIT License)
 

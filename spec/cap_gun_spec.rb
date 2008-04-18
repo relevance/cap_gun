@@ -17,7 +17,7 @@ describe "CapGun" do
   describe "mail settings" do
     include CapGun::Helper
     
-    it "raises if we dont have settings" do
+    it "raises if we don't have settings" do
       capistrano = stub_everything
       lambda { CapGun::Helper.load_mailer_config(capistrano) }.should.raise(ArgumentError).message.should == "You must define ActionMailer settings in 'cap_gun_action_mailer_config'"
     end
@@ -34,7 +34,7 @@ describe "CapGun" do
       lambda { CapGun::Helper.load_mailer_config capistrano }.should.raise(ArgumentError)
     end
     
-    it "raises if we dont have at least one recipient" do
+    it "raises if we don't have at least one recipient" do
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_email_envelope => {})
       lambda { CapGun::Helper.load_mailer_config capistrano }.should.raise(ArgumentError)
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_email_envelope => {:recipients => []})
