@@ -15,7 +15,7 @@ This even includes the Net::SMTP TLS hack inside as a vendored dependancy to all
 In your Capistrano config file (usually deploy.rb):
 
     # require cap_gun (the path will depend on where you unpacked or if you are just using it as a gem)
-    require 'vendor/plugins/cap_gun/lig/cap_gun' # typical Rails vendor/plugins location
+    require 'vendor/plugins/cap_gun/lib/cap_gun' # typical Rails vendor/plugins location
     
     # setup action mailer with a hash of options
     set :cap_gun_action_mailer_config, {
