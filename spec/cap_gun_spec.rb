@@ -56,12 +56,26 @@ describe "CapGun" do
       current_user
     end
     
+  end
+  
+  describe "handling release time" do
+    include CapGun::Helper
+    
+    before do # make DateTime act as if local timezone is EDT
+      stubs(:local_timezone).returns("EDT")
+      stubs(:local_datetime_zone_offset).returns(Rational(-1,6))
+    end
+    
     it "returns nil for weird release path" do
       humanize_release_time("/data/foo/my_release").should == nil
     end
     
     it "parse datetime from release path" do
-      humanize_release_time("/data/foo/releases/20080402152141").should == "April 2nd, 2008 3:21 PM EDT"
+      humanize_release_time("/data/foo/releases/20080227120000").should == "February 27th, 2008 8:00 AM EDT"
+    end
+    
+    it "converts time from release into localtime" do
+      humanize_release_time("/data/foo/releases/20080410040000").should == "April 10th, 2008 12:00 AM EDT"
     end
     
   end

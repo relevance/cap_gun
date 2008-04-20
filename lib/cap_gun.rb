@@ -26,7 +26,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 #   cap -s comment="fix for bug #303" deploy
 #
 module CapGun
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 
   module Helper
     
@@ -38,7 +38,7 @@ module CapGun
       ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
     end
   
-    # Current user - unsupported on Windows 
+    # Current user - unsupported on Windows, patches welcome
     def current_user
       platform.include?('mswin') ? nil : `id -un`.strip
     end
@@ -48,14 +48,31 @@ module CapGun
       RUBY_PLATFORM
     end
   
-    # Assuming the standard Capistrano timestamp directory, gives you a prettier date/time for output.
-    # This does not take into account anything to do with timezones, but I believe Capistrano always 
-    # uses UTC so we could convert to a specified time zone for even friendlier display.
+    # Gives you a prettier date/time for output form the standard Capistrano timestamp'ed release directory.
+    # This assumes Capistrano uses UTC for its date/timestamped directories, and converts to the local
+    # machine timezone.
     def humanize_release_time(path)
       match = path.match(/(\d+)$/)
       return unless match
-      time = Time.parse(match[1])
-      time.strftime("%B #{time.day.ordinalize}, %Y %l:%M %p %Z").gsub(/\s+/, ' ').strip
+      local = convert_from_utc(match[1])
+      local.strftime("%B #{local.day.ordinalize}, %Y %l:%M %p #{local_timezone}").gsub(/\s+/, ' ').strip
+    end
+    
+    # Use some DateTime magicrey to convert UTC to the current time zone
+    # When the whole world is on Rails 2.1 (and therefore new ActiveSupport) we can use the magic timezone support there.
+    def convert_from_utc(timestamp)
+      # we know Capistrano release timestaps are UTC, but Ruby doesn't, so make it explicit
+      utc_time = timestamp << "UTC" 
+      datetime = DateTime.parse(utc_time)
+      datetime.new_offset(local_datetime_zone_offset)
+    end
+    
+    def local_datetime_zone_offset
+      @local_datetime_zone_offset ||= DateTime.now.offset
+    end
+    
+    def local_timezone
+      @current_timezone ||= Time.now.zone
     end
     
     extend self
@@ -70,6 +87,11 @@ module CapGun
       adv_attr_accessor :email_prefix
       
       # Grab the options for emaililng from cap_gun_email_envelope (should be set in your deploy file)
+      #
+      # Valid options:
+      #     :recipients     (required) an array or string of email address(es) who should get notifications
+      #     :from           the sender of the notification, defaults to cap_gun@example.com
+      #     :email_prefix   subject prefix, defaults to [DEPLOY]
       def init(envelope = {})
         recipients envelope[:recipients]
         from (envelope[:from] || DEFAULT_SENDER)
