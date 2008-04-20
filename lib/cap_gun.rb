@@ -49,7 +49,7 @@ module CapGun
       RUBY_PLATFORM
     end
   
-    # Gives you a prettier date/time for output form the standard Capistrano timestamp'ed release directory.
+    # Gives you a prettier date/time for output from the standard Capistrano timestamped release directory.
     # This assumes Capistrano uses UTC for its date/timestamped directories, and converts to the local
     # machine timezone.
     def humanize_release_time(path)
@@ -62,7 +62,7 @@ module CapGun
     # Use some DateTime magicrey to convert UTC to the current time zone
     # When the whole world is on Rails 2.1 (and therefore new ActiveSupport) we can use the magic timezone support there.
     def convert_from_utc(timestamp)
-      # we know Capistrano release timestaps are UTC, but Ruby doesn't, so make it explicit
+      # we know Capistrano release timestamps are UTC, but Ruby doesn't, so make it explicit
       utc_time = timestamp << "UTC" 
       datetime = DateTime.parse(utc_time)
       datetime.new_offset(local_datetime_zone_offset)
@@ -90,7 +90,7 @@ module CapGun
       # Grab the options for emaililng from cap_gun_email_envelope (should be set in your deploy file)
       #
       # Valid options:
-      #     :recipients     (required) an array or string of email address(es) who should get notifications
+      #     :recipients     (required) an array or string of email address(es) that should get notifications
       #     :from           the sender of the notification, defaults to cap_gun@example.com
       #     :email_prefix   subject prefix, defaults to [DEPLOY]
       def init(envelope = {})
