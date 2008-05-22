@@ -59,7 +59,7 @@ describe "CapGun" do
   end
   
   describe "handling release time" do
-    include CapGun::Helper
+      include CapGun::Helper
     
     before do # make DateTime act as if local timezone is EDT
       stubs(:local_timezone).returns("EDT")
@@ -110,6 +110,11 @@ describe "CapGun" do
       mail = CapGun::Mailer.create_deployment_notification capistrano
       mail.from.should == ["booyakka!@example.com"]
     end
+    
+    xit "has a friendly summary line"
+
+    xit "does not include rails env in summary if not defined"
+    
   end
   
 end
