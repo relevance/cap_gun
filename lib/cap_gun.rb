@@ -53,6 +53,7 @@ module CapGun
     # This assumes Capistrano uses UTC for its date/timestamped directories, and converts to the local
     # machine timezone.
     def humanize_release_time(path)
+      return unless path
       match = path.match(/(\d+)$/)
       return unless match
       local = convert_from_utc(match[1])
@@ -86,8 +87,9 @@ module CapGun
       DEFAULT_EMAIL_PREFIX = "[DEPLOY] "
       
       adv_attr_accessor :email_prefix
+      attr_accessor :summary
       
-      # Grab the options for emaililng from cap_gun_email_envelope (should be set in your deploy file)
+      # Grab the options for emailing from cap_gun_email_envelope (should be set in your deploy file)
       #
       # Valid options:
       #     :recipients     (required) an array or string of email address(es) that should get notifications
@@ -102,16 +104,21 @@ module CapGun
       # Do the actual email
       def deployment_notification(capistrano)
         init(capistrano[:cap_gun_email_envelope])
+        self.summary = create_summary(capistrano)
         
         content_type "text/plain"
         subject "#{email_prefix} #{capistrano[:application]} deployed to #{capistrano[:rails_env]}"
         body    create_body(capistrano)
       end
       
+      def create_summary(capistrano)
+        %[#{capistrano[:application]} was deployed#{" to " << capistrano[:rails_env] if capistrano[:rails_env]} by #{current_user} at #{humanize_release_time(capistrano[:current_release])}.]
+      end
+      
       # Create the body of the message using a bunch of values from Capistrano
       def create_body(capistrano)
 <<-EOL
-#{capistrano[:application]} was deployed to #{capistrano[:rails_env]} by #{current_user} at #{humanize_release_time(capistrano[:current_release])}.
+#{summary}
 
 Comment: #{capistrano[:comment] || "[none given]"}
 

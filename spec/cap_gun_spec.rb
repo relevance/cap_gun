@@ -110,10 +110,20 @@ describe "CapGun" do
       mail = CapGun::Mailer.create_deployment_notification capistrano
       mail.from.should == ["booyakka!@example.com"]
     end
-    
-    xit "has a friendly summary line"
+  end
+  
+  describe "creating body" do
+    it "has a friendly summary line" do
+      capistrano = { :application => "my app", :rails_env => "staging", :current_release => "/data/foo/releases/20080227120000", :cap_gun_email_envelope => { :from => "booyakka!@example.com", :recipients => ["foo@here.com", "bar@here.com"] } }
+      mail = CapGun::Mailer.create_deployment_notification capistrano
+      mail.body.split("\n").first.should == "my app was deployed to staging by rsanheim at February 27th, 2008 8:00 AM EDT."
+    end
 
-    xit "does not include rails env in summary if not defined"
+    it "does not include rails env in summary if not defined" do
+      capistrano = { :application => "my app", :current_release => "/data/foo/releases/20080227120000", :cap_gun_email_envelope => { :from => "booyakka!@example.com", :recipients => ["foo@here.com", "bar@here.com"] } }
+      mail = CapGun::Mailer.create_deployment_notification capistrano
+      mail.body.split("\n").first.should == "my app was deployed by rsanheim at February 27th, 2008 8:00 AM EDT."
+    end
     
   end
   
