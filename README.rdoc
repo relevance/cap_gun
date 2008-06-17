@@ -55,7 +55,7 @@ In your Capistrano config file (usually deploy.rb):
 
 * Log bugs, issues, and suggestions on Trac: http://opensource.thinkrelevance.com/wiki/cap_gun
 * View source: http://github.com/relevance/cap_gun/tree/master
-* Git clone source: git://github.com/relevance/cap_gun.git
+* Git: git clone git://github.com/relevance/cap_gun.git
 * RDocs: http://thinkrelevance.rubyforge.org/cap_gun/
 
 == LICENSE
