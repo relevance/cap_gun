@@ -37,7 +37,7 @@ In your Capistrano config file (usually deploy.rb):
 == REQUIREMENTS
 
 * Capistrano 2+
-* A Gmail account to send from, or an MTA installed locally to send from
+* A Gmail account to send from, or an MTA (mail transport agent) installed locally to send from
 * Something to deploy
 
 == TODO & KNOWN ISSUES

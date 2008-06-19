@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rob Sanheim, Relevance"]
-  s.date = %q{2008-06-17}
+  s.date = %q{2008-06-19}
   s.description = %q{Super simple capistrano deployments.}
   s.email = %q{opensource@thinkrelevance.com}
   s.extra_rdoc_files = ["CHANGELOG", "lib/cap_gun.rb", "MIT-LICENSE", "README.rdoc"]
