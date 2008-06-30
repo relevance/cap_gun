@@ -2,7 +2,7 @@ require 'rubygems'
 require 'echoe'
 require './lib/cap_gun.rb'
 
-hoe = Echoe.new('cap_gun') do |p|
+echoe = Echoe.new('cap_gun') do |p|
   p.rubyforge_name = 'thinkrelevance'
   p.author = ["Rob Sanheim", "Relevance"]
   p.email = 'opensource@thinkrelevance.com'
@@ -16,3 +16,5 @@ hoe = Echoe.new('cap_gun') do |p|
   p.test_pattern = 'spec/**/*_spec.rb'
   p.manifest_name = 'manifest.txt'
 end
+
+echoe.spec.add_development_dependency "echoe"

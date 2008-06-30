@@ -1,3 +1,5 @@
+v0.0.4. Add dev dependency on echoe; update manifest
+
 v0.0.3. Don't try to convert the RAILS_ENV if its not set to better support default capistrano deployments
 
 v0.0.2. Converts the release times to the current time zone; improved docs.
