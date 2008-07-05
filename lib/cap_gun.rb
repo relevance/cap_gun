@@ -84,7 +84,7 @@ module CapGun
   class Mailer < ActionMailer::Base
       include CapGun::Helper
       DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
-      DEFAULT_EMAIL_PREFIX = "[DEPLOY] "
+      DEFAULT_EMAIL_PREFIX = "[DEPLOY]"
       
       adv_attr_accessor :email_prefix
       attr_accessor :summary
@@ -107,12 +107,16 @@ module CapGun
         self.summary = create_summary(capistrano)
         
         content_type "text/plain"
-        subject "#{email_prefix} #{capistrano[:application]} deployed to #{capistrano[:rails_env]}"
+        subject "#{email_prefix} #{capistrano[:application]} #{deployed_to(capistrano)}"
         body    create_body(capistrano)
       end
       
       def create_summary(capistrano)
         %[#{capistrano[:application]} was deployed#{" to " << capistrano[:rails_env] if capistrano[:rails_env]} by #{current_user} at #{humanize_release_time(capistrano[:current_release])}.]
+      end
+      
+      def deployed_to(capistrano)
+        returning(s = "deployed") { s += " to #{capistrano[:rails_env]}" if capistrano[:rails_env] }
       end
       
       # Create the body of the message using a bunch of values from Capistrano

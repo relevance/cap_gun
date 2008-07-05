@@ -124,6 +124,7 @@ describe "CapGun" do
       CapGun::Mailer.any_instance.stubs(:current_user).returns("jdoe")
       capistrano = { :application => "my app", :current_release => "/data/foo/releases/20080227120000", :cap_gun_email_envelope => { :from => "booyakka!@example.com", :recipients => ["foo@here.com", "bar@here.com"] } }
       mail = CapGun::Mailer.create_deployment_notification capistrano
+      mail.subject.should == "[DEPLOY] my app deployed" 
       mail.body.split("\n").first.should == "my app was deployed by jdoe at February 27th, 2008 8:00 AM EDT."
     end
     
