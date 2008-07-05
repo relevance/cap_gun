@@ -1,3 +1,11 @@
+begin
+  gem 'technicalpickles-echoe'
+rescue LoadError => e
+  puts "couldn't find the correct version of echoe - please install from forked version on github: http://github.com/technicalpickles/echoe/"
+  puts "gem sources -a http://gems.github.com"
+  puts "sudo gem install technicalpickles-echoe"
+end
+  
 require 'rubygems'
 require 'echoe'
 require './lib/cap_gun.rb'
