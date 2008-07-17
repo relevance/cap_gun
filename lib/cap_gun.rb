@@ -116,7 +116,7 @@ module CapGun
       end
       
       def deployed_to(capistrano)
-        returning(s = "deployed") { s += " to #{capistrano[:rails_env]}" if capistrano[:rails_env] }
+        returning(deploy_msg = "deployed") { |msg| msg << " to #{capistrano[:rails_env]}" if capistrano[:rails_env] }
       end
       
       # Create the body of the message using a bunch of values from Capistrano

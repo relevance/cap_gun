@@ -115,14 +115,15 @@ describe "CapGun" do
   describe "creating body" do
     it "has a friendly summary line" do
       CapGun::Mailer.any_instance.stubs(:current_user).returns("jdoe")
-      capistrano = { :application => "my app", :rails_env => "staging", :current_release => "/data/foo/releases/20080227120000", :cap_gun_email_envelope => { :from => "booyakka!@example.com", :recipients => ["foo@here.com", "bar@here.com"] } }
+      capistrano = { :application => "my app", :rails_env => "staging", :current_release => "/data/foo/releases/20080227120000",  :cap_gun_email_envelope => {} }
       mail = CapGun::Mailer.create_deployment_notification capistrano
+      mail.subject.should == "[DEPLOY] my app deployed to staging" 
       mail.body.split("\n").first.should == "my app was deployed to staging by jdoe at February 27th, 2008 8:00 AM EDT."
     end
 
-    it "does not include rails env in summary if not defined" do
+    it "does not include rails env if not defined" do
       CapGun::Mailer.any_instance.stubs(:current_user).returns("jdoe")
-      capistrano = { :application => "my app", :current_release => "/data/foo/releases/20080227120000", :cap_gun_email_envelope => { :from => "booyakka!@example.com", :recipients => ["foo@here.com", "bar@here.com"] } }
+      capistrano = { :application => "my app", :current_release => "/data/foo/releases/20080227120000", :cap_gun_email_envelope => {}}
       mail = CapGun::Mailer.create_deployment_notification capistrano
       mail.subject.should == "[DEPLOY] my app deployed" 
       mail.body.split("\n").first.should == "my app was deployed by jdoe at February 27th, 2008 8:00 AM EDT."
