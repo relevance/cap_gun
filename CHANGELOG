@@ -1,3 +1,5 @@
+v0.0.7. Pick up changelog and gemspec
+
 v0.0.6. Fix subject line if there *is* a rails_env defined - this was a bug introduced with the 0.0.5 'fix'.  Awesome.
 
 v0.0.5. Fix subject line iv there is no rails_env defined
