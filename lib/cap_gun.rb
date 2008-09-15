@@ -1,4 +1,4 @@
-require 'active_support'
+# require 'active_support'
 require 'action_mailer'
 require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib smtp_tls])
 
