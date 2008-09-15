@@ -34,6 +34,15 @@ In your Capistrano config file (usually deploy.rb):
     
     # Test everything out by running "cap cap_gun:email"
 
+== USAGE
+
+Good news: it just works.  
+
+Want to make the notifications even better and explain _why_ you're deploying?
+Just include a comment in the cap command like so, and CapGun will add the comment to the email notification.
+
+    cap -s comment="fix for bug #303" deploy
+
 == REQUIREMENTS
 
 * Capistrano 2+
