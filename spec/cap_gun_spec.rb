@@ -113,6 +113,11 @@ describe "CapGun" do
   end
   
   describe "creating body" do
+    before do # make DateTime act as if local timezone is EDT
+      stubs(:local_timezone).returns("EDT")
+      stubs(:local_datetime_zone_offset).returns(Rational(-1,6))
+    end
+    
     it "has a friendly summary line" do
       CapGun::Mailer.any_instance.stubs(:current_user).returns("jdoe")
       capistrano = { :application => "my app", :rails_env => "staging", :current_release => "/data/foo/releases/20080227120000",  :cap_gun_email_envelope => {} }
