@@ -114,8 +114,8 @@ describe "CapGun" do
   
   describe "creating body" do
     before do # make DateTime act as if local timezone is EDT
-      stubs(:local_timezone).returns("EDT")
-      stubs(:local_datetime_zone_offset).returns(Rational(-1,6))
+      CapGun::Mailer.any_instance.stubs(:local_timezone).returns("EDT")
+      CapGun::Mailer.any_instance.stubs(:local_datetime_zone_offset).returns(Rational(-1,6))
     end
     
     it "has a friendly summary line" do
