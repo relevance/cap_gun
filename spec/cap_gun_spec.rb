@@ -4,6 +4,7 @@ require 'test/unit'
 require 'test/spec'
 require 'mocha'
 require 'net/smtp'
+require 'redgreen' unless Object.const_defined?("TextMate")
 require File.join(File.dirname(__FILE__), *%w[.. lib cap_gun])
 
 describe "CapGun" do
