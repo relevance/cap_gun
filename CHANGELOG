@@ -1,3 +1,5 @@
+v0.0.9  Ruby 1.8.7 support via a small change to the Net::SMTP SSL hack
+
 v0.0.8. Fix failing spec on runcoderun that depended on timezone; add redgreen to specs
 
 v0.0.7. Pick up changelog and gemspec

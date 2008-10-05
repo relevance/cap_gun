@@ -26,7 +26,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 #
 # See README for full install/config instructions.
 module CapGun
-  VERSION = '0.0.8.1'
+  VERSION = '0.0.9'
 
   module Helper
     
