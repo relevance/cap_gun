@@ -4,6 +4,7 @@ require 'test/unit'
 require 'test/spec'
 require 'mocha'
 require 'net/smtp'
+require 'redgreen' unless Object.const_defined?("TextMate")
 require File.join(File.dirname(__FILE__), *%w[.. lib cap_gun])
 
 describe "CapGun" do
@@ -86,7 +87,21 @@ describe "CapGun" do
       capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_email_envelope => {:recipients => ["joe@example.com"]} }
       CapGun::Mailer.any_instance.expects(:create_body).with(capistrano).returns("foo")
       CapGun::Mailer.create_deployment_notification capistrano
+    end
+    
+    it "calls Net::SMTP to send the mail correctly (we test this because SMTP internals changed between 1.8.6 and newer versions of Ruby)" do
+      ActionMailer::Base.smtp_settings = {
+        :address => "smtp.gmail.com",
+        :port => 587,
+        :domain => "foo.com",
+        :authentication => :plain,
+        :user_name => "username",
+        :password => "password"
+      }
       
+      capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_email_envelope => {:recipients => ["joe@example.com"]} }
+      Net::SMTP.expects(:start)
+      CapGun::Mailer.deliver_deployment_notification capistrano
     end
   end
   
@@ -113,6 +128,11 @@ describe "CapGun" do
   end
   
   describe "creating body" do
+    before do # make DateTime act as if local timezone is EDT
+      CapGun::Mailer.any_instance.stubs(:local_timezone).returns("EDT")
+      CapGun::Mailer.any_instance.stubs(:local_datetime_zone_offset).returns(Rational(-1,6))
+    end
+    
     it "has a friendly summary line" do
       CapGun::Mailer.any_instance.stubs(:current_user).returns("jdoe")
       capistrano = { :application => "my app", :rails_env => "staging", :current_release => "/data/foo/releases/20080227120000",  :cap_gun_email_envelope => {} }

@@ -1,12 +1,5 @@
-begin
-  gem 'technicalpickles-echoe'
-rescue LoadError => e
-  puts "couldn't find the correct version of echoe - please install from forked version on github: http://github.com/technicalpickles/echoe/"
-  puts "gem sources -a http://gems.github.com"
-  puts "sudo gem install technicalpickles-echoe"
-end
-  
 require 'rubygems'
+gem 'echoe', '~> 3.0.1'
 require 'echoe'
 require './lib/cap_gun.rb'
 
@@ -24,5 +17,3 @@ echoe = Echoe.new('cap_gun') do |p|
   p.test_pattern = 'spec/**/*_spec.rb'
   p.manifest_name = 'manifest.txt'
 end
-
-echoe.spec.add_development_dependency "echoe"

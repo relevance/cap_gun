@@ -1,3 +1,7 @@
+v0.0.9  Ruby 1.8.7 support via a small change to the Net::SMTP SSL hack
+
+v0.0.8. Fix failing spec on runcoderun that depended on timezone; add redgreen to specs
+
 v0.0.7. Pick up changelog and gemspec
 
 v0.0.6. Fix subject line if there *is* a rails_env defined - this was a bug introduced with the 0.0.5 'fix'.  Awesome.
