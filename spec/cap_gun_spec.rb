@@ -89,19 +89,21 @@ describe "CapGun" do
       CapGun::Mailer.create_deployment_notification capistrano
     end
     
-    it "calls Net::SMTP to send the mail correctly (we test this because SMTP internals changed between 1.8.6 and newer versions of Ruby)" do
-      ActionMailer::Base.smtp_settings = {
-        :address => "smtp.gmail.com",
-        :port => 587,
-        :domain => "foo.com",
-        :authentication => :plain,
-        :user_name => "username",
-        :password => "password"
-      }
+    if RUBY_VERSION < "1.8.7"
+      it "calls Net::SMTP to send the mail correctly (we test this because SMTP internals changed between 1.8.6 and newer versions of Ruby)" do
+        ActionMailer::Base.smtp_settings = {
+          :address => "smtp.gmail.com",
+          :port => 587,
+          :domain => "foo.com",
+          :authentication => :plain,
+          :user_name => "username",
+          :password => "password"
+        }
       
-      capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_email_envelope => {:recipients => ["joe@example.com"]} }
-      Net::SMTP.expects(:start)
-      CapGun::Mailer.deliver_deployment_notification capistrano
+        capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_email_envelope => {:recipients => ["joe@example.com"]} }
+        Net::SMTP.expects(:start)
+        CapGun::Mailer.deliver_deployment_notification capistrano
+      end
     end
   end
   
