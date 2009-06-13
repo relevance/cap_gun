@@ -26,7 +26,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 #
 # See README for full install/config instructions.
 module CapGun
-  VERSION = '0.0.9'
+  VERSION = '0.0.10'
 
   module Helper
     
@@ -118,6 +118,10 @@ module CapGun
         returning(deploy_msg = "deployed") { |msg| msg << " to #{capistrano[:rails_env]}" if capistrano[:rails_env] }
       end
       
+      def branch(capistrano)
+        "Branch: #{capistrano[:branch]}" unless capistrano[:branch].nil? || capistrano[:branch].empty?
+      end
+      
       # Create the body of the message using a bunch of values from Capistrano
       def create_body(capistrano)
 <<-EOL
@@ -137,6 +141,8 @@ Previous Release Revision: #{capistrano[:previous_revision]}
 
 Repository: #{capistrano[:repository]}
 Deploy path: #{capistrano[:deploy_to]}
+Domain: #{capistrano[:domain]}
+#{branch(capistrano)}
 EOL
       end
     end
