@@ -5,7 +5,7 @@ require './lib/cap_gun.rb'
 
 echoe = Echoe.new('cap_gun') do |p|
   p.rubyforge_name = 'thinkrelevance'
-  p.author = ["Rob Sanheim", "Relevance"]
+  p.author = ["Rob Sanheim", "Relevance", "Muness Alrubaie"]
   p.email = 'opensource@thinkrelevance.com'
   p.version = CapGun::VERSION
   p.summary = "Bang! You're deployed!"

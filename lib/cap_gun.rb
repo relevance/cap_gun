@@ -26,7 +26,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 #
 # See README for full install/config instructions.
 module CapGun
-  VERSION = '0.0.10'
+  VERSION = '0.0.11'
 
   module Helper
     
@@ -38,20 +38,15 @@ module CapGun
       ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
     end
   
-    # Current user - unsupported on Windows, patches welcome
-    def current_user
-      platform.include?('mswin') ? nil : `id -un`.strip
-    end
-    
-    # stub hook purposes only
-    def platform
-      RUBY_PLATFORM
-    end
+    extend self
+  end
   
+  class Presenter
+    
     # Gives you a prettier date/time for output from the standard Capistrano timestamped release directory.
     # This assumes Capistrano uses UTC for its date/timestamped directories, and converts to the local
     # machine timezone.
-    def humanize_release_time(path)
+    def humanize_time(path)
       return unless path
       match = path.match(/(\d+)$/)
       return unless match
@@ -76,77 +71,142 @@ module CapGun
       @current_timezone ||= Time.now.zone
     end
     
-    extend self
-  end
-  
-  # This mailer is configured with a capistrano variable called "cap_gun_email_envelope"
-  class Mailer < ActionMailer::Base
-      include CapGun::Helper
-      DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
-      DEFAULT_EMAIL_PREFIX = "[DEPLOY]"
-      
-      adv_attr_accessor :email_prefix
-      attr_accessor :summary
-      
-      # Grab the options for emailing from cap_gun_email_envelope (should be set in your deploy file)
-      #
-      # Valid options:
-      #     :recipients     (required) an array or string of email address(es) that should get notifications
-      #     :from           the sender of the notification, defaults to cap_gun@example.com
-      #     :email_prefix   subject prefix, defaults to [DEPLOY]
-      def init(envelope = {})
-        recipients envelope[:recipients]
-        from (envelope[:from] || DEFAULT_SENDER)
-        email_prefix (envelope[:email_prefix] || DEFAULT_EMAIL_PREFIX)
-      end
-      
-      # Do the actual email
-      def deployment_notification(capistrano)
-        init(capistrano[:cap_gun_email_envelope])
-        self.summary = create_summary(capistrano)
-        
-        content_type "text/plain"
-        subject "#{email_prefix} #{capistrano[:application]} #{deployed_to(capistrano)}"
-        body    create_body(capistrano)
-      end
-      
-      def create_summary(capistrano)
-        %[#{capistrano[:application]} was deployed#{" to " << capistrano[:rails_env] if capistrano[:rails_env]} by #{current_user} at #{humanize_release_time(capistrano[:current_release])}.]
-      end
-      
-      def deployed_to(capistrano)
-        returning(deploy_msg = "deployed") { |msg| msg << " to #{capistrano[:rails_env]}" if capistrano[:rails_env] }
-      end
-      
-      def branch(capistrano)
-        "Branch: #{capistrano[:branch]}" unless capistrano[:branch].nil? || capistrano[:branch].empty?
-      end
-      
-      # Create the body of the message using a bunch of values from Capistrano
-      def create_body(capistrano)
+    attr_accessor :capistrano
+    
+    def initialize(capistrano)
+      self.capistrano = capistrano
+    end
+    
+    DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
+    DEFAULT_EMAIL_PREFIX = "[DEPLOY]"
+
+    # stub hook purposes only
+    def platform
+      RUBY_PLATFORM
+    end
+
+    def rails_env
+      capistrano[:rails_env]
+    end
+
+    def release_time
+      humanize_time(capistrano[:current_release])
+    end
+    
+    # Current user - unsupported on Windows, patches welcome
+    def current_user
+      platform.include?('mswin') ? nil : `id -un`.strip
+    end
+
+    def summary
+      %[#{capistrano[:application]} was #{deployed_to} by #{current_user} at #{release_time}.]
+    end
+
+    def deployed_to
+      return "deployed to #{rails_env}" if rails_env
+      "deployed"
+    end
+
+    def branch
+      "Branch: #{capistrano[:branch]}" unless capistrano[:branch].nil? || capistrano[:branch].empty?
+    end
+
+    def git_details
+      return unless capistrano[:scm] == :git
+      <<-EOL
+#{branch}
+#{git_log}
+      EOL
+      rescue
+        nil
+    end
+
+    def git_log
+      "\nCommits since last release\n====================\n#{git_log_messages}"
+    end
+
+    def git_log_messages
+      `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
+    end
+
+    def previous_release_time 
+      humanize_time(capistrano[:previous_release])
+    end
+
+    # Create the body of the message using a bunch of values from Capistrano
+    def body
 <<-EOL
 #{summary}
-
-Comment: #{capistrano[:comment] || "[none given]"}
-
+#{comment}
 Nerd details
 ============
 Release: #{capistrano[:current_release]}
-Release Time: #{humanize_release_time(capistrano[:current_release])}
+Release Time: #{release_time}
 Release Revision: #{capistrano[:current_revision]}
 
 Previous Release: #{capistrano[:previous_release]}
-Previous Release Time: #{humanize_release_time(capistrano[:previous_release])}
+Previous Release Time: #{previous_release_time}
 Previous Release Revision: #{capistrano[:previous_revision]}
 
 Repository: #{capistrano[:repository]}
 Deploy path: #{capistrano[:deploy_to]}
 Domain: #{capistrano[:domain]}
-#{branch(capistrano)}
+#{git_details}
 EOL
-      end
     end
 
+    def envelope
+      capistrano[:cap_gun_email_envelope]
+    end
+
+    def recipients
+      envelope[:recipients]
+    end
+
+    def email_prefix
+      envelope[:email_prefix] || DEFAULT_EMAIL_PREFIX
+    end
+
+    def from
+      envelope[:from] || DEFAULT_SENDER
+    end
+
+    def subject
+      "#{email_prefix} #{capistrano[:application]} #{deployed_to}"
+    end
+    
+    def comment
+      "Comment: #{capistrano[:comment]}.\n" if capistrano[:comment]
+    end
+
+  end
+  
+  # This mailer is configured with a capistrano variable called "cap_gun_email_envelope"
+  class Mailer < ActionMailer::Base
+      include CapGun::Helper
+      
+      adv_attr_accessor :email_prefix
+      
+      # Grab the options for emailing from capistrano[:cap_gun_email_envelope] (should be set in your deploy file)
+      #
+      # Valid options:
+      #     :recipients     (required) an array or string of email address(es) that should get notifications
+      #     :from           the sender of the notification, defaults to cap_gun@example.com
+      #     :email_prefix   subject prefix, defaults to [DEPLOY]
+      #
+      #
+      def deployment_notification(capistrano)
+        presenter = Presenter.new(capistrano)
+        
+        content_type "text/plain"
+        email_prefix presenter.email_prefix
+        from         presenter.from
+        recipients   presenter.recipients
+        subject      presenter.subject
+        body         presenter.body
+      end
+    end
+    
 end
 
 if Object.const_defined?("Capistrano")
