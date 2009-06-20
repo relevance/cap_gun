@@ -2,6 +2,62 @@ require 'etc'
 
 module CapGun
   class Presenter
+    DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
+    DEFAULT_EMAIL_PREFIX = "[DEPLOY]"
+    
+    attr_accessor :capistrano
+    
+    def initialize(capistrano)
+      self.capistrano = capistrano
+    end
+    
+
+    def recipients
+      capistrano[:cap_gun_email_envelope][:recipients]
+    end
+
+    def email_prefix
+      capistrano[:cap_gun_email_envelope][:email_prefix] || DEFAULT_EMAIL_PREFIX
+    end
+
+    def from
+      capistrano[:cap_gun_email_envelope][:from] || DEFAULT_SENDER
+    end
+    
+    def current_user
+      Etc.getlogin
+    end
+
+    def summary
+      %[#{capistrano[:application]} was #{deployed_to} by #{current_user} at #{release_time}.]
+    end
+
+    def deployed_to
+      return "deployed to #{capistrano[:rails_env]}" if capistrano[:rails_env]
+      "deployed"
+    end
+
+    def branch
+      "Branch: #{capistrano[:branch]}" unless capistrano[:branch].nil? || capistrano[:branch].empty?
+    end
+
+    def git_details
+      return unless capistrano[:scm] == :git
+      <<-EOL
+#{branch}
+#{git_log}
+      EOL
+      rescue
+        nil
+    end
+
+    def git_log
+      "\nCommits since last release\n====================\n#{git_log_messages}"
+    end
+
+    def git_log_messages
+      `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
+    end
     
     # Gives you a prettier date/time for output from the standard Capistrano timestamped release directory.
     # This assumes Capistrano uses UTC for its date/timestamped directories, and converts to the local
@@ -31,68 +87,22 @@ module CapGun
       @current_timezone ||= Time.now.zone
     end
     
-    attr_accessor :capistrano
-    
-    def initialize(capistrano)
-      self.capistrano = capistrano
-    end
-    
-    DEFAULT_SENDER = %("CapGun" <cap_gun@example.com>)
-    DEFAULT_EMAIL_PREFIX = "[DEPLOY]"
-
-    # stub hook purposes only
-    def platform
-      RUBY_PLATFORM
-    end
-
-    def rails_env
-      capistrano[:rails_env]
-    end
-
     def release_time
       humanize_release_time(capistrano[:current_release])
     end
     
-    def current_user
-      Etc.getlogin
-    end
-
-    def summary
-      %[#{capistrano[:application]} was #{deployed_to} by #{current_user} at #{release_time}.]
-    end
-
-    def deployed_to
-      return "deployed to #{rails_env}" if rails_env
-      "deployed"
-    end
-
-    def branch
-      "Branch: #{capistrano[:branch]}" unless capistrano[:branch].nil? || capistrano[:branch].empty?
-    end
-
-    def git_details
-      return unless capistrano[:scm] == :git
-      <<-EOL
-#{branch}
-#{git_log}
-      EOL
-      rescue
-        nil
-    end
-
-    def git_log
-      "\nCommits since last release\n====================\n#{git_log_messages}"
-    end
-
-    def git_log_messages
-      `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
-    end
-
     def previous_release_time 
       humanize_release_time(capistrano[:previous_release])
     end
 
-    # Create the body of the message using a bunch of values from Capistrano
+    def subject
+      "#{email_prefix} #{capistrano[:application]} #{deployed_to}"
+    end
+    
+    def comment
+      "Comment: #{capistrano[:comment]}.\n" if capistrano[:comment]
+    end
+
     def body
 <<-EOL
 #{summary}
@@ -114,28 +124,5 @@ Domain: #{capistrano[:domain]}
 EOL
     end
 
-    def envelope
-      capistrano[:cap_gun_email_envelope]
-    end
-
-    def recipients
-      envelope[:recipients]
-    end
-
-    def email_prefix
-      envelope[:email_prefix] || DEFAULT_EMAIL_PREFIX
-    end
-
-    def from
-      envelope[:from] || DEFAULT_SENDER
-    end
-
-    def subject
-      "#{email_prefix} #{capistrano[:application]} #{deployed_to}"
-    end
-    
-    def comment
-      "Comment: #{capistrano[:comment]}.\n" if capistrano[:comment]
-    end
   end
 end
