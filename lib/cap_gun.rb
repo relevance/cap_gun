@@ -34,7 +34,7 @@ module CapGun
   class Mailer < ActionMailer::Base
 
       def self.load_mailer_config(cap)
-       raise ArgumentError, "You must define ActionMailer settings in 'cap_gun_action_mailer_config'" unless cap.cap_gun_action_mailer_config 
+       raise ArgumentError, "You must define ActionMailer settings in 'cap_gun_action_mailer_config'" unless cap.cap_gun_action_mailer_config
        raise ArgumentError, "Need at least one recipient." if !cap.exists?(:cap_gun_email_envelope) || cap[:cap_gun_email_envelope][:recipients].blank?
 
        ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
@@ -47,7 +47,6 @@ module CapGun
       #     :from           the sender of the notification, defaults to cap_gun@example.com
       #     :email_prefix   subject prefix, defaults to [DEPLOY]
       def deployment_notification(capistrano)
-        load_mailer_config(capistrano)
         presenter = Presenter.new(capistrano)
         
         content_type "text/plain"
@@ -67,6 +66,7 @@ if Object.const_defined?("Capistrano")
     namespace :cap_gun do
       desc "Send notification of the current release and the previous release via email."
       task :email do
+        CapGun::Mailer.load_mailer_config(self)
         CapGun::Mailer.deliver_deployment_notification(self)
       end
     end

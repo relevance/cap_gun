@@ -44,35 +44,7 @@ describe "CapGun" do
     
   end
   
-  describe "handling release time" do
-    
-    before do # make DateTime act as if local timezone is EDT
-      @presenter = CapGun::Presenter.new(nil)
-      @presenter.stubs(:local_timezone).returns("EDT")
-      @presenter.stubs(:local_datetime_zone_offset).returns(Rational(-1,6))
-    end
-    
-    it "returns nil for weird release path" do
-      @presenter.humanize_release_time("/data/foo/my_release").should == nil
-    end
-    
-    it "parse datetime from release path" do
-      @presenter.humanize_release_time("/data/foo/releases/20080227120000").should == "February 27th, 2008 8:00 AM EDT"
-    end
-    
-    it "converts time from release into localtime" do
-      @presenter.humanize_release_time("/data/foo/releases/20080410040000").should == "April 10th, 2008 12:00 AM EDT"
-    end
-    
-  end
-  
   describe "Mailer" do
-    
-    it "passes capistrano into create body" do
-      capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_email_envelope => {:recipients => ["joe@example.com"]} }
-      CapGun::Mailer.any_instance.expects(:create_body).with(capistrano).returns("foo")
-      CapGun::Mailer.create_deployment_notification capistrano
-    end
     
     it "calls Net::SMTP to send the mail correctly (we test this because SMTP internals changed between 1.8.6 and newer versions of Ruby)" do
       ActionMailer::Base.smtp_settings = {
@@ -89,52 +61,6 @@ describe "CapGun" do
       Net::SMTP.expects(:new).returns(smtp)
       smtp.expects(:start)
       CapGun::Mailer.deliver_deployment_notification capistrano
-    end
-    
-  end
-  
-  describe "Mail envelope" do
-    before { CapGun::Mailer.any_instance.stubs(:create_body).returns("email body!") }
-    
-    it "gets recipients from email envelope" do
-      capistrano = { :cap_gun_email_envelope => { :recipients => ["foo@here.com", "bar@here.com"] } }
-      mail = CapGun::Mailer.create_deployment_notification capistrano
-      mail.to.should == ["foo@here.com", "bar@here.com"]
-    end
-
-    it "should have a default sender" do
-      capistrano = { :cap_gun_email_envelope => { :recipients => "foo@here.com" } }
-      mail = CapGun::Mailer.create_deployment_notification capistrano
-      mail.from.should == ["cap_gun@example.com"]
-    end
-    
-    it "should override sender from email envelope" do
-      capistrano = { :cap_gun_email_envelope => { :from => "booyakka!@example.com", :recipients => ["foo@here.com", "bar@here.com"] } }
-      mail = CapGun::Mailer.create_deployment_notification capistrano
-      mail.from.should == ["booyakka!@example.com"]
-    end
-  end
-  
-  describe "creating body" do
-    before do # make DateTime act as if local timezone is EDT
-      CapGun::Mailer.any_instance.stubs(:local_timezone).returns("EDT")
-      CapGun::Mailer.any_instance.stubs(:local_datetime_zone_offset).returns(Rational(-1,6))
-    end
-    
-    it "has a friendly summary line" do
-      CapGun::Mailer.any_instance.stubs(:current_user).returns("jdoe")
-      capistrano = { :application => "my app", :rails_env => "staging", :current_release => "/data/foo/releases/20080227120000",  :cap_gun_email_envelope => {} }
-      mail = CapGun::Mailer.create_deployment_notification capistrano
-      mail.subject.should == "[DEPLOY] my app deployed to staging" 
-      mail.body.split("\n").first.should == "my app was deployed to staging by jdoe at February 27th, 2008 8:00 AM EDT."
-    end
-
-    it "does not include rails env if not defined" do
-      CapGun::Mailer.any_instance.stubs(:current_user).returns("jdoe")
-      capistrano = { :application => "my app", :current_release => "/data/foo/releases/20080227120000", :cap_gun_email_envelope => {}}
-      mail = CapGun::Mailer.create_deployment_notification capistrano
-      mail.subject.should == "[DEPLOY] my app deployed" 
-      mail.body.split("\n").first.should == "my app was deployed by jdoe at February 27th, 2008 8:00 AM EDT."
     end
     
   end
