@@ -1,5 +1,5 @@
 require 'rubygems'
-gem 'echoe', '~> 3.0.1'
+gem 'echoe', '~> 3.0'
 require 'echoe'
 require './lib/cap_gun.rb'
 
