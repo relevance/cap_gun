@@ -56,7 +56,12 @@ module CapGun
     end
 
     def git_log_messages
-      `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
+      messages = `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
+      exit_code.success? ? messages : "N/A"
+    end
+    
+    def exit_code
+      $?
     end
     
     # Gives you a prettier date/time for output from the standard Capistrano timestamped release directory.

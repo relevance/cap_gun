@@ -30,7 +30,7 @@ describe "CapGun" do
       ActionMailer::Base.smtp_settings.should == {:account => "foo@gmail.com", :password => "password"}
     end
     
-    it "raises if we have no cap gun email envelope" do
+    it "raises if don't have a cap gun email envelope" do
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :exists? => false)
       lambda { CapGun::Mailer.load_mailer_config capistrano }.should.raise(ArgumentError)
     end
