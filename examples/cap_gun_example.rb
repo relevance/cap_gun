@@ -1,26 +1,18 @@
-ENV["RAILS_ENV"] = "test"
-require 'rubygems'
-require 'test/unit'
-require 'test/spec'
-require 'mocha'
-require 'net/smtp'
-require 'redgreen' unless Object.const_defined?("TextMate")
+require File.join(File.dirname(__FILE__), *%w[example_helper])
 
-require File.join(File.dirname(__FILE__), *%w[.. lib cap_gun])
+describe CapGun do
 
-describe "CapGun" do
   it "uses action mailer hack" do
     Net::SMTP.new('').respond_to?(:starttls, true).should == true
   end
-end
-
-describe "CapGun" do
 
   describe "mail settings" do
     
     it "raises if we don't have settings" do
       capistrano = stub_everything
-      lambda { CapGun::Mailer.load_mailer_config(capistrano) }.should.raise(ArgumentError).message.should == "You must define ActionMailer settings in 'cap_gun_action_mailer_config'"
+      lambda { 
+        CapGun::Mailer.load_mailer_config(capistrano) 
+      }.should raise_error(ArgumentError, "You must define ActionMailer settings in 'cap_gun_action_mailer_config'")
     end
   
     it "gets action mailer config from capistrano" do
@@ -32,19 +24,25 @@ describe "CapGun" do
     
     it "raises if don't have a cap gun email envelope" do
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :exists? => false)
-      lambda { CapGun::Mailer.load_mailer_config capistrano }.should.raise(ArgumentError)
+      lambda { 
+        CapGun::Mailer.load_mailer_config capistrano 
+      }.should raise_error(ArgumentError)
     end
     
     it "raises if we don't have at least one recipient" do
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_email_envelope => {})
-      lambda { CapGun::Mailer.load_mailer_config capistrano }.should.raise(ArgumentError)
+      lambda { 
+        CapGun::Mailer.load_mailer_config capistrano 
+      }.should raise_error(ArgumentError)
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_email_envelope => {:recipients => []})
-      lambda { CapGun::Mailer.load_mailer_config capistrano }.should.raise(ArgumentError)
+      lambda { 
+        CapGun::Mailer.load_mailer_config capistrano 
+      }.should raise_error(ArgumentError)
     end
     
   end
   
-  describe "Mailer" do
+  describe CapGun::Mailer do
     
     it "calls Net::SMTP to send the mail correctly (we test this because SMTP internals changed between 1.8.6 and newer versions of Ruby)" do
       ActionMailer::Base.smtp_settings = {

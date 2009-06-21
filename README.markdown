@@ -1,6 +1,6 @@
-= CapGun
+# CapGun
   
-== DESCRIPTION
+## DESCRIPTION
 
 Tell everyone about your releases!  Send email notification after Capistrano deployments!  Rule the world!
 
@@ -10,7 +10,7 @@ Setup and configuration are done entirely inside your deploy.rb file to keep it 
 
 This even includes the Net::SMTP TLS hack inside as a vendored dependancy to allow super easy email sending without setting up an MTA.
 
-== CONFIG
+## CONFIG
 
 In your Capistrano config file (usually deploy.rb):
 
@@ -34,37 +34,38 @@ In your Capistrano config file (usually deploy.rb):
     
     # Test everything out by running "cap cap_gun:email"
 
-== USAGE
+## USAGE
 
 Good news: it just works.  
+
+By default CapGun includes info like the user who is deploying and what server its being deployed to.  CapGun is biased for git (patches accepted for other SCMs), so it will include details like your current branch, the revisions since last deployment, the current commit being deployed.
 
 Want to make the notifications even better and explain _why_ you're deploying?
 Just include a comment in the cap command like so, and CapGun will add the comment to the email notification.
 
     cap -s comment="fix for bug #303" deploy
 
-== REQUIREMENTS
+## REQUIREMENTS
 
 * Capistrano 2+
 * A Gmail account to send from, or an MTA (mail transport agent) installed locally to send from
 * Something to deploy
 
-== TODO & KNOWN ISSUES
+## TODO & KNOWN ISSUES
 
 * displays the release times in UTC (Capistrano default) - could be flipped to specified time zone
-* some stuff will probably break on windows
+* some stuff will probably break on windows - patches welcome
 
-== INSTALL
+## INSTALL
 
-* sudo gem install cap_gun  and gem unpack into your vendor/plugins
+* `sudo gem install cap_gun`  and gem unpack into your vendor/plugins
 * or just grab the tarball from github (see below)
 
+## URLS
 
-== URLS
-
-* Log bugs, issues, and suggestions at Lighthouse: http://relevance.lighthouseapp.com/projects/18547-cap-gun/overview
+* Log bugs, issues, and suggestions at GitHub: http://github.com/relevance/cap_gun/issues
 * View source: http://github.com/relevance/cap_gun
-* Git: git clone git://github.com/relevance/cap_gun.git
+* Continuos Integration: http://runcoderun.com/relevance/cap_gun
 * RDocs: http://thinkrelevance.rubyforge.org/cap_gun
 
 == LICENSE
