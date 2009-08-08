@@ -42,7 +42,7 @@ module CapGun
     end
 
     def git_details
-      return unless capistrano[:scm] == :git
+      return unless capistrano[:scm].to_sym == :git
       <<-EOL
 #{branch}
 #{git_log}
