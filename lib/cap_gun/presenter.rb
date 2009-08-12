@@ -112,8 +112,8 @@ module CapGun
 <<-EOL
 #{summary}
 #{comment}
-Nerd details
-============
+Deployment details
+==================
 Release: #{capistrano[:current_release]}
 Release Time: #{release_time}
 Release Revision: #{capistrano[:current_revision]}
