@@ -1,6 +1,4 @@
 ENV["RAILS_ENV"] = "test"
-gem "spicycode-micronaut"
-gem 'mocha'
 require 'net/smtp'
 require "mocha"
 require 'micronaut'
