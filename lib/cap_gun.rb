@@ -65,7 +65,7 @@ if Object.const_defined?("Capistrano")
 
     namespace :cap_gun do
       desc "Send notification of the current release and the previous release via email."
-      task :email do
+      task :email, :roles => :app do
         CapGun::Mailer.load_mailer_config(self)
         CapGun::Mailer.deliver_deployment_notification(self)
       end
