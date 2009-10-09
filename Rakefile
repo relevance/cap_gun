@@ -7,12 +7,12 @@ begin
     gemspec.homepage = "http://github.com/relevance/cap_gun"
     gemspec.description = 'Super simple capistrano deployment notifications.'
     gemspec.authors = ["Rob Sanheim", "Muness Alrubaie", "Relevance"]
-    gemspec.rubyforge_project = 'thinkrelevance'
-    gemspec.add_development_dependency "spicycode-micronaut"
+    gemspec.add_development_dependency "micronaut"
     gemspec.add_development_dependency "mocha"
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install jeweler -s http://gems.github.com"
+  puts "Jeweler not available. Install it with: sudo gem install jeweler"
 end
 
 begin 
@@ -27,12 +27,10 @@ begin
     examples.rcov_opts = %[-Ilib -Iexamples --exclude "gems/*,/Library/Ruby/*,config/*" --text-summary  --sort coverage]
     examples.rcov = true
   end
+end
 
-  if RUBY_VERSION =~ /1.8/ 
-    task :default => 'rcov'
-  else
-    task :default => 'examples'
-  end
-rescue LoadError
-  puts "Micronaut not available to run tests.  Install it with: sudo gem install spicycode-micronaut -s http://gems.github.com"
+if RUBY_VERSION =~ /1.8/ 
+  task :default => [:check_dependencies, :rcov]
+else
+  task :default => [:check_dependencies, :examples]
 end
