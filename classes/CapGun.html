@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CapGun</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+    <script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <div class="banner">
+        <h1>
+            <span class="type">Module</span> 
+            CapGun 
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/lib/cap_gun/presenter_rb.html">lib/cap_gun/presenter.rb</a></li>
+            
+            <li><a href="../files/lib/cap_gun_rb.html">lib/cap_gun.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+        <p>
+Tell everyone about your releases! Send email notification after Capistrano
+deployments! Rule the world!
+</p>
+<p>
+We include the ActionMailer hack to play nice with Gmail, so that&#8217;s a
+super easy way to do this without setting up your own MTA.
+</p>
+<p>
+Example:
+</p>
+<p>
+Want to just shoot everyone an email about the latest status?
+</p>
+<pre>
+  cap cap_gun:email
+</pre>
+<p>
+Include comments?
+</p>
+<pre>
+  cap -s comment=&quot;hi mom&quot; cap_gun:email
+</pre>
+<p>
+Enable emails after every deploy by adding this to your deploy.rb:
+</p>
+<pre>
+  after &quot;deploy&quot;, &quot;cap_gun:email&quot;
+</pre>
+<p>
+Now, next time you deploy, you can optionally include comments:
+</p>
+<pre>
+  cap -s comment=&quot;fix for bug #303&quot; deploy
+</pre>
+<p>
+See README for full install/config instructions.
+</p>
+
+    </div>
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+
+    
+
+    
+    <div class="sectiontitle">Classes and Modules</div>
+    <ul>
+        
+        <li><span class="type">CLASS</span> <a href="CapGun/Mailer.html">CapGun::Mailer</a></li>
+        
+        <li><span class="type">CLASS</span> <a href="CapGun/Presenter.html">CapGun::Presenter</a></li>
+        
+    </ul>
+    
+
+    
+    <div class="sectiontitle">Constants</div>
+    <table border='0' cellpadding='5'>
+        
+        <tr valign='top'>
+            <td class="attr-name">VERSION</td>
+            <td>=</td>
+            <td class="attr-value">'0.0.11'</td>
+        </tr>
+        
+        
+    </table>
+    
+
+    
+
+    
+</div>
+    </div>
+  </body>
+</html>    

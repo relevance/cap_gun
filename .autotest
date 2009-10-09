@@ -1,0 +1,12 @@
+require 'autotest/menu'
+
+Autotest.add_hook :initialize do |at|
+  at.clear_mappings
+  
+  at.add_mapping(%r%lib/(.*)\.rb$%) { |filename, match|
+    at.files_matching %r%^spec/#{match[1]}.*\.rb$%
+  }
+  at.add_mapping(%r%^spec/.*\.rb$%) { |filename, match|
+    filename
+  }
+end
