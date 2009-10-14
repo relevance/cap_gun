@@ -115,7 +115,7 @@
         <dd>
             <ul>
                 
-                <li><a href="#M000012">humanize_release_time</a></li>
+                <li><a href="#M000013">humanize_release_time</a></li>
                 
             </ul>
         </dd>
@@ -124,9 +124,9 @@
         <dd>
             <ul>
                 
-                <li><a href="#M000015">local_datetime_zone_offset</a>,</li>
+                <li><a href="#M000016">local_datetime_zone_offset</a>,</li>
                 
-                <li><a href="#M000016">local_timezone</a></li>
+                <li><a href="#M000017">local_timezone</a></li>
                 
             </ul>
         </dd>
@@ -144,7 +144,7 @@
         <dd>
             <ul>
                 
-                <li><a href="#M000018">previous_release_time</a></li>
+                <li><a href="#M000019">previous_release_time</a></li>
                 
             </ul>
         </dd>
@@ -155,7 +155,7 @@
                 
                 <li><a href="#M000001">recipients</a>,</li>
                 
-                <li><a href="#M000017">release_time</a></li>
+                <li><a href="#M000018">release_time</a></li>
                 
             </ul>
         </dd>
@@ -590,9 +590,9 @@ the magic timezone support there.
             </div>
             
             <div class="method">
-                <div class="title" id="M000012">
+                <div class="title" id="M000013">
                     
-                    <a name="M000012"></a><b>humanize_release_time</b>(path)
+                    <a name="M000013"></a><b>humanize_release_time</b>(path)
                     
                 </div>
                 
@@ -610,12 +610,12 @@ date/timestamped directories, and converts to the local machine timezone.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000012_source')" id="l_M000012_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000013_source')" id="l_M000013_source">show</a>
                         
                         | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L71" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000012_source" class="dyn-source">
+                    <div id="M000013_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 71</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">humanize_release_time</span>(<span class="ruby-identifier">path</span>)
       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">path</span>
@@ -630,36 +630,9 @@ date/timestamped directories, and converts to the local machine timezone.
             </div>
             
             <div class="method">
-                <div class="title" id="M000015">
-                    
-                    <a name="M000015"></a><b>local_datetime_zone_offset</b>()
-                    
-                </div>
-                
-                
-                
-                
-                <div class="sourcecode">
-                    <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000015_source')" id="l_M000015_source">show</a>
-                        
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L88" target="_blank" class="github_url">on GitHub</a>
-                        
-                    </p>
-                    <div id="M000015_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 88</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local_datetime_zone_offset</span>
-      <span class="ruby-ivar">@local_datetime_zone_offset</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">offset</span>
-    <span class="ruby-keyword kw">end</span></pre>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="method">
                 <div class="title" id="M000016">
                     
-                    <a name="M000016"></a><b>local_timezone</b>()
+                    <a name="M000016"></a><b>local_datetime_zone_offset</b>()
                     
                 </div>
                 
@@ -670,10 +643,37 @@ date/timestamped directories, and converts to the local machine timezone.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000016_source')" id="l_M000016_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L92" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L88" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000016_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 88</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local_datetime_zone_offset</span>
+      <span class="ruby-ivar">@local_datetime_zone_offset</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">offset</span>
+    <span class="ruby-keyword kw">end</span></pre>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="method">
+                <div class="title" id="M000017">
+                    
+                    <a name="M000017"></a><b>local_timezone</b>()
+                    
+                </div>
+                
+                
+                
+                
+                <div class="sourcecode">
+                    <p class="source-link">
+                        Source: <a href="javascript:toggleSource('M000017_source')" id="l_M000017_source">show</a>
+                        
+                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L92" target="_blank" class="github_url">on GitHub</a>
+                        
+                    </p>
+                    <div id="M000017_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 92</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local_timezone</span>
       <span class="ruby-ivar">@current_timezone</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">zone</span>
@@ -684,9 +684,9 @@ date/timestamped directories, and converts to the local machine timezone.
             </div>
             
             <div class="method">
-                <div class="title" id="M000018">
+                <div class="title" id="M000019">
                     
-                    <a name="M000018"></a><b>previous_release_time</b>()
+                    <a name="M000019"></a><b>previous_release_time</b>()
                     
                 </div>
                 
@@ -695,12 +695,12 @@ date/timestamped directories, and converts to the local machine timezone.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000018_source')" id="l_M000018_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000019_source')" id="l_M000019_source">show</a>
                         
                         | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L100" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000018_source" class="dyn-source">
+                    <div id="M000019_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 100</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">previous_release_time</span> 
       <span class="ruby-identifier">humanize_release_time</span>(<span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:previous_release</span>])
@@ -738,9 +738,9 @@ date/timestamped directories, and converts to the local machine timezone.
             </div>
             
             <div class="method">
-                <div class="title" id="M000017">
+                <div class="title" id="M000018">
                     
-                    <a name="M000017"></a><b>release_time</b>()
+                    <a name="M000018"></a><b>release_time</b>()
                     
                 </div>
                 
@@ -749,12 +749,12 @@ date/timestamped directories, and converts to the local machine timezone.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000017_source')" id="l_M000017_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000018_source')" id="l_M000018_source">show</a>
                         
                         | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L96" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000017_source" class="dyn-source">
+                    <div id="M000018_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 96</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">release_time</span>
       <span class="ruby-identifier">humanize_release_time</span>(<span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:current_release</span>])
