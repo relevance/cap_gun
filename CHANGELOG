@@ -1,3 +1,7 @@
+v0.2.1  Documentation update so that it works with ActionMailer 2.3+
+
+v0.2.0  Git changes in the email, major refactoring
+
 v0.0.9  Ruby 1.8.7 support via a small change to the Net::SMTP SSL hack
 
 v0.0.8. Fix failing spec on runcoderun that depended on timezone; add redgreen to specs
