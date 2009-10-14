@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CapGun::Mailer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+    <script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <div class="banner">
+        <h1>
+            <span class="type">Class</span> 
+            CapGun::Mailer 
+            
+                <span class="parent">&lt; 
+                    
+                    ActionMailer::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/lib/cap_gun_rb.html">lib/cap_gun.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+        <p>
+This mailer is configured with a capistrano variable called
+&#8220;cap_gun_email_envelope&#8220;
+</p>
+
+    </div>
+    
+
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+    
+        <dt>D</dt>
+        <dd>
+            <ul>
+                
+                <li><a href="#M000016">deployment_notification</a></li>
+                
+            </ul>
+        </dd>
+    
+        <dt>L</dt>
+        <dd>
+            <ul>
+                
+                <li><a href="#M000013">load_mailer_config</a></li>
+                
+            </ul>
+        </dd>
+    
+    </dl>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+            <div class="sectiontitle">Class Public methods</div>
+            
+            <div class="method">
+                <div class="title" id="M000013">
+                    
+                    <a name="M000013"></a><b>load_mailer_config</b>(cap)
+                    
+                </div>
+                
+                
+                
+                
+                <div class="sourcecode">
+                    <p class="source-link">
+                        Source: <a href="javascript:toggleSource('M000013_source')" id="l_M000013_source">show</a>
+                        
+                        | <a href="http://github.com/relevance/cap_gun/blob/dbe6b4574dadaa34dbb2a1f4a87c9c7a07064d7e/lib/cap_gun.rb#L36" target="_blank" class="github_url">on GitHub</a>
+                        
+                    </p>
+                    <div id="M000013_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun.rb, line 36</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">load_mailer_config</span>(<span class="ruby-identifier">cap</span>)
+       <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;You must define ActionMailer settings in 'cap_gun_action_mailer_config'&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">cap</span>.<span class="ruby-identifier">cap_gun_action_mailer_config</span>
+       <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Need at least one recipient.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">cap</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">:cap_gun_email_envelope</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">cap</span>[<span class="ruby-identifier">:cap_gun_email_envelope</span>][<span class="ruby-identifier">:recipients</span>].<span class="ruby-identifier">blank?</span>
+
+       <span class="ruby-constant">ActionMailer</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">smtp_settings</span> = <span class="ruby-identifier">cap</span>.<span class="ruby-identifier">cap_gun_action_mailer_config</span>
+      <span class="ruby-keyword kw">end</span></pre>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="sectiontitle">Instance Public methods</div>
+            
+            <div class="method">
+                <div class="title" id="M000016">
+                    
+                    <a name="M000016"></a><b>deployment_notification</b>(capistrano)
+                    
+                </div>
+                
+                <div class="description">
+                  <p>
+Grab the options for emailing from capistrano[:cap_gun_email_envelope]
+(should be set in your deploy file)
+</p>
+<p>
+Valid options:
+</p>
+<pre>
+    :recipients     (required) an array or string of email address(es) that should get notifications
+    :from           the sender of the notification, defaults to cap_gun@example.com
+    :email_prefix   subject prefix, defaults to [DEPLOY]
+</pre>
+
+                </div>
+                
+                
+                
+                
+                <div class="sourcecode">
+                    <p class="source-link">
+                        Source: <a href="javascript:toggleSource('M000016_source')" id="l_M000016_source">show</a>
+                        
+                        | <a href="http://github.com/relevance/cap_gun/blob/dbe6b4574dadaa34dbb2a1f4a87c9c7a07064d7e/lib/cap_gun.rb#L49" target="_blank" class="github_url">on GitHub</a>
+                        
+                    </p>
+                    <div id="M000016_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun.rb, line 49</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deployment_notification</span>(<span class="ruby-identifier">capistrano</span>)
+        <span class="ruby-identifier">presenter</span> = <span class="ruby-constant">Presenter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">capistrano</span>)
+        
+        <span class="ruby-identifier">content_type</span> <span class="ruby-value str">&quot;text/plain&quot;</span>
+        <span class="ruby-identifier">from</span>         <span class="ruby-identifier">presenter</span>.<span class="ruby-identifier">from</span>
+        <span class="ruby-identifier">recipients</span>   <span class="ruby-identifier">presenter</span>.<span class="ruby-identifier">recipients</span>
+        <span class="ruby-identifier">subject</span>      <span class="ruby-identifier">presenter</span>.<span class="ruby-identifier">subject</span>
+        <span class="ruby-identifier">body</span>         <span class="ruby-identifier">presenter</span>.<span class="ruby-identifier">body</span>
+      <span class="ruby-keyword kw">end</span></pre>
+                    </div>
+                </div>
+                
+            </div>
+            
+</div>
+    </div>
+  </body>
+</html>    
