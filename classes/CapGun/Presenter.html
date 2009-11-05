@@ -51,7 +51,7 @@
                 
                 <li><a href="#M000022">body</a>,</li>
                 
-                <li><a href="#M000007">branch</a></li>
+                <li><a href="#M000008">branch</a></li>
                 
             </ul>
         </dd>
@@ -62,7 +62,7 @@
                 
                 <li><a href="#M000021">comment</a>,</li>
                 
-                <li><a href="#M000014">convert_from_utc</a>,</li>
+                <li><a href="#M000015">convert_from_utc</a>,</li>
                 
                 <li><a href="#M000004">current_user</a></li>
                 
@@ -73,7 +73,7 @@
         <dd>
             <ul>
                 
-                <li><a href="#M000006">deployed_to</a></li>
+                <li><a href="#M000007">deployed_to</a></li>
                 
             </ul>
         </dd>
@@ -84,7 +84,7 @@
                 
                 <li><a href="#M000002">email_prefix</a>,</li>
                 
-                <li><a href="#M000011">exit_code</a></li>
+                <li><a href="#M000013">exit_code</a></li>
                 
             </ul>
         </dd>
@@ -98,24 +98,11 @@
             </ul>
         </dd>
     
-        <dt>G</dt>
-        <dd>
-            <ul>
-                
-                <li><a href="#M000008">git_details</a>,</li>
-                
-                <li><a href="#M000009">git_log</a>,</li>
-                
-                <li><a href="#M000010">git_log_messages</a></li>
-                
-            </ul>
-        </dd>
-    
         <dt>H</dt>
         <dd>
             <ul>
                 
-                <li><a href="#M000013">humanize_release_time</a></li>
+                <li><a href="#M000014">humanize_release_time</a></li>
                 
             </ul>
         </dd>
@@ -164,9 +151,15 @@
         <dd>
             <ul>
                 
+                <li><a href="#M000009">scm_details</a>,</li>
+                
+                <li><a href="#M000011">scm_log</a>,</li>
+                
+                <li><a href="#M000012">scm_log_messages</a>,</li>
+                
                 <li><a href="#M000020">subject</a>,</li>
                 
-                <li><a href="#M000005">summary</a></li>
+                <li><a href="#M000006">summary</a></li>
                 
             </ul>
         </dd>
@@ -233,7 +226,7 @@
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000000_source')" id="l_M000000_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L10" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L10" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000000_source" class="dyn-source">
@@ -262,13 +255,13 @@
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000022_source')" id="l_M000022_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L112" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L119" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000022_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 112</span>
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 119</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">body</span>
-<span class="ruby-value str">&quot;\#{summary}\n\#{comment}\nDeployment details\n==================\nRelease: \#{capistrano[:current_release]}\nRelease Time: \#{release_time}\nRelease Revision: \#{capistrano[:current_revision]}\n\nPrevious Release: \#{capistrano[:previous_release]}\nPrevious Release Time: \#{previous_release_time}\nPrevious Release Revision: \#{capistrano[:previous_revision]}\n\nRepository: \#{capistrano[:repository]}\nDeploy path: \#{capistrano[:deploy_to]}\nDomain: \#{capistrano[:domain]}\n\#{git_details}\n&quot;</span>
+<span class="ruby-value str">&quot;\#{summary}\n\#{comment}\nDeployment details\n==================\nRelease: \#{capistrano[:current_release]}\nRelease Time: \#{release_time}\nRelease Revision: \#{capistrano[:current_revision]}\n\nPrevious Release: \#{capistrano[:previous_release]}\nPrevious Release Time: \#{previous_release_time}\nPrevious Release Revision: \#{capistrano[:previous_revision]}\n\nRepository: \#{capistrano[:repository]}\nDeploy path: \#{capistrano[:deploy_to]}\nDomain: \#{capistrano[:domain]}\n\#{scm_details}\n&quot;</span>
     <span class="ruby-keyword kw">end</span></pre>
                     </div>
                 </div>
@@ -276,9 +269,9 @@
             </div>
             
             <div class="method">
-                <div class="title" id="M000007">
+                <div class="title" id="M000008">
                     
-                    <a name="M000007"></a><b>branch</b>()
+                    <a name="M000008"></a><b>branch</b>()
                     
                 </div>
                 
@@ -287,12 +280,12 @@
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000007_source')" id="l_M000007_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000008_source')" id="l_M000008_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L40" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L40" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000007_source" class="dyn-source">
+                    <div id="M000008_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 40</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">branch</span>
       <span class="ruby-node">&quot;Branch: #{capistrano[:branch]}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:branch</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:branch</span>].<span class="ruby-identifier">empty?</span>
@@ -316,11 +309,11 @@
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000021_source')" id="l_M000021_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L108" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L115" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000021_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 108</span>
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 115</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">comment</span>
       <span class="ruby-node">&quot;Comment: #{capistrano[:comment]}.\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:comment</span>]
     <span class="ruby-keyword kw">end</span></pre>
@@ -330,9 +323,9 @@
             </div>
             
             <div class="method">
-                <div class="title" id="M000014">
+                <div class="title" id="M000015">
                     
-                    <a name="M000014"></a><b>convert_from_utc</b>(timestamp)
+                    <a name="M000015"></a><b>convert_from_utc</b>(timestamp)
                     
                 </div>
                 
@@ -350,13 +343,13 @@ the magic timezone support there.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000014_source')" id="l_M000014_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000015_source')" id="l_M000015_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L81" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L88" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000014_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 81</span>
+                    <div id="M000015_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 88</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_from_utc</span>(<span class="ruby-identifier">timestamp</span>)
       <span class="ruby-comment cmt"># we know Capistrano release timestamps are UTC, but Ruby doesn't, so make it explicit</span>
       <span class="ruby-identifier">utc_time</span> = <span class="ruby-identifier">timestamp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;UTC&quot;</span> 
@@ -382,7 +375,7 @@ the magic timezone support there.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000004_source')" id="l_M000004_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L27" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L27" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000004_source" class="dyn-source">
@@ -396,9 +389,9 @@ the magic timezone support there.
             </div>
             
             <div class="method">
-                <div class="title" id="M000006">
+                <div class="title" id="M000007">
                     
-                    <a name="M000006"></a><b>deployed_to</b>()
+                    <a name="M000007"></a><b>deployed_to</b>()
                     
                 </div>
                 
@@ -407,12 +400,12 @@ the magic timezone support there.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000006_source')" id="l_M000006_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000007_source')" id="l_M000007_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L35" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L35" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000006_source" class="dyn-source">
+                    <div id="M000007_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 35</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deployed_to</span>
       <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;deployed to #{capistrano[:rails_env]}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:rails_env</span>]
@@ -437,7 +430,7 @@ the magic timezone support there.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000002_source')" id="l_M000002_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L19" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L19" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000002_source" class="dyn-source">
@@ -451,9 +444,9 @@ the magic timezone support there.
             </div>
             
             <div class="method">
-                <div class="title" id="M000011">
+                <div class="title" id="M000013">
                     
-                    <a name="M000011"></a><b>exit_code</b>()
+                    <a name="M000013"></a><b>exit_code</b>()
                     
                 </div>
                 
@@ -462,13 +455,13 @@ the magic timezone support there.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000011_source')" id="l_M000011_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000013_source')" id="l_M000013_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L64" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L71" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000011_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 64</span>
+                    <div id="M000013_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 71</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exit_code</span>
       <span class="ruby-identifier">$?</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -491,7 +484,7 @@ the magic timezone support there.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000003_source')" id="l_M000003_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L23" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L23" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000003_source" class="dyn-source">
@@ -505,94 +498,9 @@ the magic timezone support there.
             </div>
             
             <div class="method">
-                <div class="title" id="M000008">
+                <div class="title" id="M000014">
                     
-                    <a name="M000008"></a><b>git_details</b>()
-                    
-                </div>
-                
-                
-                
-                
-                <div class="sourcecode">
-                    <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000008_source')" id="l_M000008_source">show</a>
-                        
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L44" target="_blank" class="github_url">on GitHub</a>
-                        
-                    </p>
-                    <div id="M000008_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 44</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">git_details</span>
-      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:scm</span>].<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:git</span>
-      <span class="ruby-value str">&quot;\#{branch}\n\#{git_log}\n&quot;</span>
-      <span class="ruby-keyword kw">rescue</span>
-        <span class="ruby-keyword kw">nil</span>
-    <span class="ruby-keyword kw">end</span></pre>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="method">
-                <div class="title" id="M000009">
-                    
-                    <a name="M000009"></a><b>git_log</b>()
-                    
-                </div>
-                
-                
-                
-                
-                <div class="sourcecode">
-                    <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000009_source')" id="l_M000009_source">show</a>
-                        
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L55" target="_blank" class="github_url">on GitHub</a>
-                        
-                    </p>
-                    <div id="M000009_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 55</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">git_log</span>
-      <span class="ruby-node">&quot;\nCommits since last release\n====================\n#{git_log_messages}&quot;</span>
-    <span class="ruby-keyword kw">end</span></pre>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="method">
-                <div class="title" id="M000010">
-                    
-                    <a name="M000010"></a><b>git_log_messages</b>()
-                    
-                </div>
-                
-                
-                
-                
-                <div class="sourcecode">
-                    <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000010_source')" id="l_M000010_source">show</a>
-                        
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L59" target="_blank" class="github_url">on GitHub</a>
-                        
-                    </p>
-                    <div id="M000010_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 59</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">git_log_messages</span>
-      <span class="ruby-identifier">messages</span> = <span class="ruby-node">`git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`</span>
-      <span class="ruby-identifier">exit_code</span>.<span class="ruby-identifier">success?</span> <span class="ruby-value">? </span><span class="ruby-identifier">messages</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;N/A&quot;</span>
-    <span class="ruby-keyword kw">end</span></pre>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="method">
-                <div class="title" id="M000013">
-                    
-                    <a name="M000013"></a><b>humanize_release_time</b>(path)
+                    <a name="M000014"></a><b>humanize_release_time</b>(path)
                     
                 </div>
                 
@@ -610,13 +518,13 @@ date/timestamped directories, and converts to the local machine timezone.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000013_source')" id="l_M000013_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000014_source')" id="l_M000014_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L71" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L78" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000013_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 71</span>
+                    <div id="M000014_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 78</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">humanize_release_time</span>(<span class="ruby-identifier">path</span>)
       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">path</span>
       <span class="ruby-identifier">match</span> = <span class="ruby-identifier">path</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/(\d+)$/</span>)
@@ -643,11 +551,11 @@ date/timestamped directories, and converts to the local machine timezone.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000016_source')" id="l_M000016_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L88" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L95" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000016_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 88</span>
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 95</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local_datetime_zone_offset</span>
       <span class="ruby-ivar">@local_datetime_zone_offset</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">offset</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -670,11 +578,11 @@ date/timestamped directories, and converts to the local machine timezone.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000017_source')" id="l_M000017_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L92" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L99" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000017_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 92</span>
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 99</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local_timezone</span>
       <span class="ruby-ivar">@current_timezone</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">zone</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -697,11 +605,11 @@ date/timestamped directories, and converts to the local machine timezone.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000019_source')" id="l_M000019_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L100" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L107" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000019_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 100</span>
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 107</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">previous_release_time</span> 
       <span class="ruby-identifier">humanize_release_time</span>(<span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:previous_release</span>])
     <span class="ruby-keyword kw">end</span></pre>
@@ -724,7 +632,7 @@ date/timestamped directories, and converts to the local machine timezone.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000001_source')" id="l_M000001_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L15" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L15" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000001_source" class="dyn-source">
@@ -751,13 +659,105 @@ date/timestamped directories, and converts to the local machine timezone.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000018_source')" id="l_M000018_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L96" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L103" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000018_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 96</span>
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 103</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">release_time</span>
       <span class="ruby-identifier">humanize_release_time</span>(<span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:current_release</span>])
+    <span class="ruby-keyword kw">end</span></pre>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="method">
+                <div class="title" id="M000009">
+                    
+                    <a name="M000009"></a><b>scm_details</b>()
+                    
+                </div>
+                
+                
+                
+                
+                <div class="sourcecode">
+                    <p class="source-link">
+                        Source: <a href="javascript:toggleSource('M000009_source')" id="l_M000009_source">show</a>
+                        
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L44" target="_blank" class="github_url">on GitHub</a>
+                        
+                    </p>
+                    <div id="M000009_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 44</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scm_details</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> [<span class="ruby-identifier">:git</span>,<span class="ruby-identifier">:subversion</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:scm</span>].<span class="ruby-identifier">to_sym</span>
+      <span class="ruby-value str">&quot;\#{branch}\n\#{scm_log}\n&quot;</span>
+      <span class="ruby-keyword kw">rescue</span>
+        <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">end</span></pre>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="method">
+                <div class="title" id="M000011">
+                    
+                    <a name="M000011"></a><b>scm_log</b>()
+                    
+                </div>
+                
+                
+                
+                
+                <div class="sourcecode">
+                    <p class="source-link">
+                        Source: <a href="javascript:toggleSource('M000011_source')" id="l_M000011_source">show</a>
+                        
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L55" target="_blank" class="github_url">on GitHub</a>
+                        
+                    </p>
+                    <div id="M000011_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 55</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scm_log</span>
+      <span class="ruby-node">&quot;\nCommits since last release\n====================\n#{scm_log_messages}&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="method">
+                <div class="title" id="M000012">
+                    
+                    <a name="M000012"></a><b>scm_log_messages</b>()
+                    
+                </div>
+                
+                
+                
+                
+                <div class="sourcecode">
+                    <p class="source-link">
+                        Source: <a href="javascript:toggleSource('M000012_source')" id="l_M000012_source">show</a>
+                        
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L59" target="_blank" class="github_url">on GitHub</a>
+                        
+                    </p>
+                    <div id="M000012_source" class="dyn-source">
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 59</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scm_log_messages</span>
+      <span class="ruby-identifier">messages</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">capistrano</span>[<span class="ruby-identifier">:scm</span>].<span class="ruby-identifier">to_sym</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:git</span>
+          <span class="ruby-node">`git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:subversion</span>
+          <span class="ruby-node">`svn log -r #{capistrano[:previous_revision].to_i+1}:#{capistrano[:current_revision]}`</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-value str">&quot;N/A&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">exit_code</span>.<span class="ruby-identifier">success?</span> <span class="ruby-value">? </span><span class="ruby-identifier">messages</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;N/A&quot;</span>
     <span class="ruby-keyword kw">end</span></pre>
                     </div>
                 </div>
@@ -778,11 +778,11 @@ date/timestamped directories, and converts to the local machine timezone.
                     <p class="source-link">
                         Source: <a href="javascript:toggleSource('M000020_source')" id="l_M000020_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L104" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L111" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
                     <div id="M000020_source" class="dyn-source">
-                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 104</span>
+                        <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 111</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subject</span>
       <span class="ruby-node">&quot;#{email_prefix} #{capistrano[:application]} #{deployed_to}&quot;</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -792,9 +792,9 @@ date/timestamped directories, and converts to the local machine timezone.
             </div>
             
             <div class="method">
-                <div class="title" id="M000005">
+                <div class="title" id="M000006">
                     
-                    <a name="M000005"></a><b>summary</b>()
+                    <a name="M000006"></a><b>summary</b>()
                     
                 </div>
                 
@@ -803,12 +803,12 @@ date/timestamped directories, and converts to the local machine timezone.
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000005_source')" id="l_M000005_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000006_source')" id="l_M000006_source">show</a>
                         
-                        | <a href="http://github.com/relevance/cap_gun/blob/31891bcc6756c572860ebaa872e13aea5445b2dc/lib/cap_gun/presenter.rb#L31" target="_blank" class="github_url">on GitHub</a>
+                        | <a href="http://github.com/relevance/cap_gun/blob/6a8e79d8a2e0357afe081ac681a5e40bcc982d9a/lib/cap_gun/presenter.rb#L31" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000005_source" class="dyn-source">
+                    <div id="M000006_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun/presenter.rb, line 31</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">summary</span>
       <span class="ruby-node">%[#{capistrano[:application]} was #{deployed_to} by #{current_user} at #{release_time}.]</span>

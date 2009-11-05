@@ -57,7 +57,7 @@ This mailer is configured with a capistrano variable called
         <dd>
             <ul>
                 
-                <li><a href="#M000015">deployment_notification</a></li>
+                <li><a href="#M000010">deployment_notification</a></li>
                 
             </ul>
         </dd>
@@ -66,7 +66,7 @@ This mailer is configured with a capistrano variable called
         <dd>
             <ul>
                 
-                <li><a href="#M000012">load_mailer_config</a></li>
+                <li><a href="#M000005">load_mailer_config</a></li>
                 
             </ul>
         </dd>
@@ -88,9 +88,9 @@ This mailer is configured with a capistrano variable called
             <div class="sectiontitle">Class Public methods</div>
             
             <div class="method">
-                <div class="title" id="M000012">
+                <div class="title" id="M000005">
                     
-                    <a name="M000012"></a><b>load_mailer_config</b>(cap)
+                    <a name="M000005"></a><b>load_mailer_config</b>(cap)
                     
                 </div>
                 
@@ -99,12 +99,12 @@ This mailer is configured with a capistrano variable called
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000012_source')" id="l_M000012_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000005_source')" id="l_M000005_source">show</a>
                         
                         | <a href="http://github.com/relevance/cap_gun/blob/dbe6b4574dadaa34dbb2a1f4a87c9c7a07064d7e/lib/cap_gun.rb#L36" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000012_source" class="dyn-source">
+                    <div id="M000005_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun.rb, line 36</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">load_mailer_config</span>(<span class="ruby-identifier">cap</span>)
        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;You must define ActionMailer settings in 'cap_gun_action_mailer_config'&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">cap</span>.<span class="ruby-identifier">cap_gun_action_mailer_config</span>
@@ -120,9 +120,9 @@ This mailer is configured with a capistrano variable called
             <div class="sectiontitle">Instance Public methods</div>
             
             <div class="method">
-                <div class="title" id="M000015">
+                <div class="title" id="M000010">
                     
-                    <a name="M000015"></a><b>deployment_notification</b>(capistrano)
+                    <a name="M000010"></a><b>deployment_notification</b>(capistrano)
                     
                 </div>
                 
@@ -147,12 +147,12 @@ Valid options:
                 
                 <div class="sourcecode">
                     <p class="source-link">
-                        Source: <a href="javascript:toggleSource('M000015_source')" id="l_M000015_source">show</a>
+                        Source: <a href="javascript:toggleSource('M000010_source')" id="l_M000010_source">show</a>
                         
                         | <a href="http://github.com/relevance/cap_gun/blob/dbe6b4574dadaa34dbb2a1f4a87c9c7a07064d7e/lib/cap_gun.rb#L49" target="_blank" class="github_url">on GitHub</a>
                         
                     </p>
-                    <div id="M000015_source" class="dyn-source">
+                    <div id="M000010_source" class="dyn-source">
                         <pre><span class="ruby-comment cmt"># File lib/cap_gun.rb, line 49</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deployment_notification</span>(<span class="ruby-identifier">capistrano</span>)
         <span class="ruby-identifier">presenter</span> = <span class="ruby-constant">Presenter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">capistrano</span>)
