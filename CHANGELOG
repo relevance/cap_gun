@@ -1,3 +1,5 @@
+v0.2.2  SVN support courtesy Olivier Brisse
+
 v0.2.1  Documentation update so that it works with ActionMailer 2.3+
 
 v0.2.0  Git changes in the email, major refactoring
