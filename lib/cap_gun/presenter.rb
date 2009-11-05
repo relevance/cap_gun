@@ -41,29 +41,36 @@ module CapGun
       "Branch: #{capistrano[:branch]}" unless capistrano[:branch].nil? || capistrano[:branch].empty?
     end
 
-    def git_details
-      return unless capistrano[:scm].to_sym == :git
+    def scm_details
+      return unless [:git,:subversion].include? capistrano[:scm].to_sym
       <<-EOL
 #{branch}
-#{git_log}
+#{scm_log}
       EOL
       rescue
         nil
     end
 
-    def git_log
-      "\nCommits since last release\n====================\n#{git_log_messages}"
+    def scm_log
+      "\nCommits since last release\n====================\n#{scm_log_messages}"
     end
 
-    def git_log_messages
-      messages = `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
+    def scm_log_messages
+      messages = case capistrano[:scm].to_sym
+        when :git
+          `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
+        when :subversion
+          `svn log -r #{capistrano[:previous_revision].to_i+1}:#{capistrano[:current_revision]}`
+        else
+          "N/A"
+      end
       exit_code.success? ? messages : "N/A"
     end
-    
+
     def exit_code
       $?
     end
-    
+
     # Gives you a prettier date/time for output from the standard Capistrano timestamped release directory.
     # This assumes Capistrano uses UTC for its date/timestamped directories, and converts to the local
     # machine timezone.
@@ -125,7 +132,7 @@ Previous Release Revision: #{capistrano[:previous_revision]}
 Repository: #{capistrano[:repository]}
 Deploy path: #{capistrano[:deploy_to]}
 Domain: #{capistrano[:domain]}
-#{git_details}
+#{scm_details}
 EOL
     end
 
