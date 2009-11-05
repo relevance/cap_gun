@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cap_gun}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rob Sanheim", "Muness Alrubaie", "Relevance"]
-  s.date = %q{2009-10-14}
+  s.date = %q{2009-11-05}
   s.description = %q{Super simple capistrano deployment notifications.}
   s.email = %q{opensource@thinkrelevance.com}
   s.extra_rdoc_files = [
@@ -24,15 +24,39 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
+     "apple-touch-icon.png",
      "cap_gun.gemspec",
+     "classes/CapGun.html",
+     "classes/CapGun/Mailer.html",
+     "classes/CapGun/Presenter.html",
+     "created.rid",
+     "css/main.css",
+     "css/panel.css",
+     "css/reset.css",
      "examples/cap_gun_example.rb",
      "examples/example_helper.rb",
      "examples/presenter_example.rb",
+     "favicon.ico",
+     "files/LICENSE.html",
+     "files/README_markdown.html",
+     "files/lib/cap_gun/presenter_rb.html",
+     "files/lib/cap_gun_rb.html",
+     "i/arrows.png",
+     "i/results_bg.png",
+     "i/tree_bg.png",
+     "index.html",
      "init.rb",
      "install.rb",
+     "js/jquery-1.3.2.min.js",
+     "js/jquery-effect.js",
+     "js/main.js",
+     "js/searchdoc.js",
      "lib/cap_gun.rb",
      "lib/cap_gun/presenter.rb",
      "manifest.txt",
+     "panel/index.html",
+     "panel/search_index.js",
+     "panel/tree.js",
      "tasks/cap_bot_tasks.rake",
      "vendor/action_mailer_tls/README",
      "vendor/action_mailer_tls/init.rb",
