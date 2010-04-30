@@ -68,7 +68,6 @@ Just include a comment in the cap command like so, and CapGun will add the comme
 
 * Log bugs, issues, and suggestions at GitHub: http://github.com/relevance/cap_gun/issues
 * View source: http://github.com/relevance/cap_gun
-* Continuos Integration: http://runcoderun.com/relevance/cap_gun
 * SDocs: http://relevance.github.com/cap_gun/
 
 == LICENSE
