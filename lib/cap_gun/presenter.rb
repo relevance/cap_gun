@@ -10,7 +10,6 @@ module CapGun
     def initialize(capistrano)
       self.capistrano = capistrano
     end
-    
 
     def recipients
       capistrano[:cap_gun_email_envelope][:recipients]
@@ -79,7 +78,7 @@ module CapGun
       match = path.match(/(\d+)$/)
       return unless match
       local = convert_from_utc(match[1])
-      local.strftime("%B #{local.day.ordinalize}, %Y %l:%M %p #{local_timezone}").gsub(/\s+/, ' ').strip
+      local.strftime("%B #{local.day}, %Y %l:%M %p #{local_timezone}").gsub(/\s+/, ' ').strip
     end
     
     # Use some DateTime magicrey to convert UTC to the current time zone

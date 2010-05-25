@@ -28,7 +28,7 @@ require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib sm
 #
 # See README for full install/config instructions.
 module CapGun
-  VERSION = '0.0.11'
+  VERSION = '0.2.3'
 
   # This mailer is configured with a capistrano variable called "cap_gun_email_envelope"
   class Mailer < ActionMailer::Base
@@ -67,7 +67,11 @@ if Object.const_defined?("Capistrano")
       desc "Send notification of the current release and the previous release via email."
       task :email, :roles => :app do
         CapGun::Mailer.load_mailer_config(self)
-        CapGun::Mailer.deliver_deployment_notification(self)
+        if CapGun::Mailer.respond_to?(:deliver_deployment_notification)
+          CapGun::Mailer.deliver_deployment_notification(self)
+        else
+          CapGun::Mailer.deployment_notification(self).deliver
+        end
       end
     end
     
