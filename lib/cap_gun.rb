@@ -1,3 +1,16 @@
+require 'active_support'
+
+begin
+  # This requires the full active_support.
+  # ActiveSupport v3 and up are modular and 
+  # need to be explicitly loaded.
+  # Rescue in cases of ActiveSupport 2.3.2 and earlier.
+  require 'active_support/all'
+rescue
+  # Do nothing, everything should be included
+  # by default in older versions of ActiveSupport.
+end
+
 require 'action_mailer'
 
 require File.join(File.dirname(__FILE__), *%w[cap_gun presenter])
