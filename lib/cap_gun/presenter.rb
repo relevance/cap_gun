@@ -102,6 +102,10 @@ module CapGun
       humanize_release_time(capistrano[:current_release])
     end
     
+    def previous_revision
+      capistrano[:previous_release] ? capistrano[:previous_revision] : 'n/a'
+    end
+    
     def previous_release_time 
       humanize_release_time(capistrano[:previous_release])
     end
@@ -126,7 +130,7 @@ Release Revision: #{capistrano[:current_revision]}
 
 Previous Release: #{capistrano[:previous_release]}
 Previous Release Time: #{previous_release_time}
-Previous Release Revision: #{capistrano[:previous_revision]}
+Previous Release Revision: #{previous_revision}
 
 Repository: #{capistrano[:repository]}
 Deploy path: #{capistrano[:deploy_to]}
