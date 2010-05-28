@@ -8,6 +8,7 @@ begin
     gemspec.description = 'Super simple capistrano deployment notifications.'
     gemspec.authors = ["Rob Sanheim", "Muness Alrubaie", "Relevance"]
     gemspec.add_dependency 'activesupport'
+    gemspec.add_dependency 'actionmailer'
     gemspec.add_development_dependency "micronaut"
     gemspec.add_development_dependency "mocha"
   end
