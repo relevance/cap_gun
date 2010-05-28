@@ -100,5 +100,17 @@ describe CapGun::Presenter do
     end
     
   end
+  
+  describe "previous_revision" do
+    
+    it "returns n/a if not set" do
+      CapGun::Presenter.new({}).previous_revision.should == "n/a"
+    end
+    
+    it "returns the previous revision if set" do
+      CapGun::Presenter.new({:previous_revision => "100"}).previous_revision.should == "100"
+    end
+    
+  end
 
 end

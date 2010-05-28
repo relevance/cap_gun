@@ -1,3 +1,7 @@
+v0.2.4 Clean up and a little more safety around previous revision
+
+v0.2.3  Fix the case where there is no previous revision so it doesn't blow up
+
 v0.2.2  SVN support courtesy Olivier Brisse
 
 v0.2.1  Documentation update so that it works with ActionMailer 2.3+

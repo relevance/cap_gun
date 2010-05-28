@@ -57,9 +57,9 @@ module CapGun
     def scm_log_messages
       messages = case capistrano[:scm].to_sym
         when :git
-          `git log #{capistrano[:previous_revision]}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
+          `git log #{previous_revision}..#{capistrano[:current_revision]} --pretty=format:%h:%s`
         when :subversion
-          `svn log -r #{capistrano[:previous_revision].to_i+1}:#{capistrano[:current_revision]}`
+          `svn log -r #{previous_revision.to_i+1}:#{capistrano[:current_revision]}`
         else
           "N/A"
       end
@@ -103,7 +103,7 @@ module CapGun
     end
     
     def previous_revision
-      capistrano[:previous_release] ? capistrano[:previous_revision] : 'n/a'
+      capistrano.fetch(:previous_revision, "n/a")
     end
     
     def previous_release_time 
