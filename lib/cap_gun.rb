@@ -80,10 +80,10 @@ if Object.const_defined?("Capistrano")
       desc "Send notification of the current release and the previous release via email."
       task :email, :roles => :app do
         CapGun::Mailer.load_mailer_config(self)
-        if CapGun::Mailer.respond_to?(:deliver_deployment_notification)
-          CapGun::Mailer.deliver_deployment_notification(self)
-        else
+        if CapGun::Mailer.respond_to?(:deployment_notification)
           CapGun::Mailer.deployment_notification(self).deliver
+        else
+          CapGun::Mailer.deliver_deployment_notification(self)          
         end
       end
     end
