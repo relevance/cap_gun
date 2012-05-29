@@ -26,6 +26,9 @@ In your Capistrano config file (usually deploy.rb):
       :authentication => :plain 
     }
 
+    # Or just use sendmail:
+    #set :cap_gun_action_mailer_config, :sendmail
+
     # define the options for the actual emails that go out -- :recipients is the only required option
     set :cap_gun_email_envelope, { 
       :from => "project.deployer@example.com", # Note, don't use the form "Someone project.deploy@example.com" as it'll blow up with ActionMailer 2.3+
