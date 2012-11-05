@@ -2,7 +2,7 @@ require 'active_support'
 
 begin
   # This requires the full active_support.
-  # ActiveSupport v3 and up are modular and 
+  # ActiveSupport v3 and up are modular and
   # need to be explicitly loaded.
   # Rescue in cases of ActiveSupport 2.3.2 and earlier.
   require 'active_support/all'
@@ -14,25 +14,21 @@ end
 require 'action_mailer'
 
 require File.join(File.dirname(__FILE__), *%w[cap_gun presenter])
-require File.join(File.dirname(__FILE__), *%w[.. vendor action_mailer_tls lib smtp_tls])
 
 # Tell everyone about your releases!  Send email notification after Capistrano deployments!  Rule the world!
-# 
-# We include the ActionMailer hack to play nice with Gmail, so that's a super easy way 
-# to do this without setting up your own MTA.
 #
 # Example:
 #
 # Want to just shoot everyone an email about the latest status?
 #
 #   cap cap_gun:email
-# 
+#
 # Include comments?
 #
 #   cap -s comment="hi mom" cap_gun:email
 #
 # Enable emails after every deploy by adding this to your deploy.rb:
-# 
+#
 #   after "deploy", "cap_gun:email"
 #
 # Now, next time you deploy, you can optionally include comments:
@@ -52,7 +48,7 @@ module CapGun
 
        ActionMailer::Base.smtp_settings = cap.cap_gun_action_mailer_config
       end
-      
+
       # Grab the options for emailing from capistrano[:cap_gun_email_envelope] (should be set in your deploy file)
       #
       # Valid options:
@@ -61,7 +57,7 @@ module CapGun
       #     :email_prefix   subject prefix, defaults to [DEPLOY]
       def deployment_notification(capistrano)
         presenter = Presenter.new(capistrano)
-        
+
         content_type "text/plain"
         from         presenter.from
         recipients   presenter.recipients
@@ -69,7 +65,7 @@ module CapGun
         body         presenter.body
       end
     end
-    
+
 end
 
 if Object.const_defined?("Capistrano")
@@ -83,10 +79,10 @@ if Object.const_defined?("Capistrano")
         if CapGun::Mailer.respond_to?(:deployment_notification)
           CapGun::Mailer.deployment_notification(self).deliver
         else
-          CapGun::Mailer.deliver_deployment_notification(self)          
+          CapGun::Mailer.deliver_deployment_notification(self)
         end
       end
     end
-    
+
   end
 end
