@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 require 'net/smtp'
-require "mocha"
+require 'mocha_standalone'
 require 'micronaut'
 require File.join(File.dirname(__FILE__), *%w[.. lib cap_gun])
 
