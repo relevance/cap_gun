@@ -1,3 +1,4 @@
-doc
+.rvmrc
+rdoc
 pkg
-coverage
+Gemfile.lock
