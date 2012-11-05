@@ -37,8 +37,6 @@ require File.join(File.dirname(__FILE__), *%w[cap_gun presenter])
 #
 # See README for full install/config instructions.
 module CapGun
-  VERSION = '0.2.4'
-
   # This mailer is configured with a capistrano variable called "cap_gun_email_envelope"
   class Mailer < ActionMailer::Base
 
