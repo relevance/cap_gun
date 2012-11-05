@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.version       = "0.3.0.pre"
 
   gem.add_dependency("activesupport")
-  gem.add_dependency("actionmailer")
+  gem.add_dependency("actionmailer", ">= 3.0.0")
 
   gem.add_development_dependency("rake")
   gem.add_development_dependency("rdoc")

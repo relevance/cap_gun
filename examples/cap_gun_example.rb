@@ -1,9 +1,7 @@
 require File.join(File.dirname(__FILE__), *%w[example_helper])
 
 describe CapGun do
-
   describe "mail settings" do
-
     it "raises if we don't have settings" do
       capistrano = stub_everything
       lambda {
@@ -21,42 +19,37 @@ describe CapGun do
     it "raises if don't have a cap gun email envelope" do
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :exists? => false)
       lambda {
-        CapGun::Mailer.load_mailer_config capistrano
+        CapGun::Mailer.load_mailer_config(capistrano)
       }.should raise_error(ArgumentError)
     end
 
     it "raises if we don't have at least one recipient" do
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_email_envelope => {})
       lambda {
-        CapGun::Mailer.load_mailer_config capistrano
+        CapGun::Mailer.load_mailer_config(capistrano)
       }.should raise_error(ArgumentError)
       capistrano = stub_everything(:cap_gun_action_mailer_config => {}, :cap_gun_email_envelope => {:recipients => []})
       lambda {
-        CapGun::Mailer.load_mailer_config capistrano
+        CapGun::Mailer.load_mailer_config(capistrano)
       }.should raise_error(ArgumentError)
     end
-
   end
 
   describe CapGun::Mailer do
-
-    it "calls Net::SMTP to send the mail correctly (we test this because SMTP internals changed between 1.8.6 and newer versions of Ruby)" do
-      ActionMailer::Base.smtp_settings = {
-        :address => "smtp.gmail.com",
-        :port => 587,
-        :domain => "foo.com",
-        :authentication => :plain,
-        :user_name => "username",
-        :password => "password"
-      }
-
-      capistrano = { :current_release => "/data/foo", :previous_release => "/data/foo", :cap_gun_email_envelope => {:recipients => ["joe@example.com"]} }
-      smtp = Net::SMTP.new('gmail.com', 25)
-      Net::SMTP.expects(:new).returns(smtp)
-      smtp.expects(:start)
-      CapGun::Mailer.deliver_deployment_notification capistrano
+    describe "deployment_notification" do
+      it "builds the correct mail object" do
+        capistrano = {
+          :cap_gun_email_envelope => {
+            :recipients => ["joe@example.com"],
+            :from       => "me@example.com"
+          }
+        }
+        presenter = CapGun::Presenter.new(capistrano)
+        mail = CapGun::Mailer.deployment_notification(capistrano)
+        mail.to.should      == presenter.recipients
+        mail.from.should    == [presenter.from] # yes, Mail gem returns an array here
+        mail.subject.should == presenter.subject
+      end
     end
-
   end
-
 end
