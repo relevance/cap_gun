@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
-  gem.test_files    = `git ls-files -- {examples}/*`.split("\n")
+  gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
   gem.name          = "cap_gun"
   gem.require_paths = ["lib"]
   gem.version       = "0.3.0.pre"
