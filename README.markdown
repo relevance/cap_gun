@@ -8,8 +8,6 @@ Drop your ActionMailer configuration information into your deploy.rb file, confi
 
 Setup and configuration are done entirely inside your deploy.rb file to keep it super simple.  Your emails are sent locally from the box performing the deployment, but CapGun queries the server to grab the necessary release info.
 
-This even includes the Net::SMTP TLS hack inside as a vendored dependancy to allow super easy email sending without setting up an MTA.
-
 ## CONFIG
 
 In your Capistrano config file (usually deploy.rb):
