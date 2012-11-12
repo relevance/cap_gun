@@ -1,6 +1,6 @@
 # CapGun
 
-## DESCRIPTION
+## Description
 
 Tell everyone about your releases!  Send email notification after Capistrano deployments!  Rule the world!
 
@@ -8,7 +8,7 @@ Drop your ActionMailer configuration information into your deploy.rb file, confi
 
 Setup and configuration are done entirely inside your deploy.rb file to keep it super simple.  Your emails are sent locally from the box performing the deployment, but CapGun queries the server to grab the necessary release info.
 
-## CONFIG
+## Config
 
 In your Capistrano config file (usually `deploy.rb`):
 
@@ -38,7 +38,7 @@ after "deploy:restart", "cap_gun:email"
 
 Test everything out by running `cap cap_gun:email`.
 
-## USAGE
+## Usage
 
 Good news: it just works.
 
@@ -49,18 +49,18 @@ Just include a comment in the cap command like so, and CapGun will add the comme
 
     $ cap -s comment="fix for bug #303" deploy
 
-## REQUIREMENTS
+## Requirements
 
 * Capistrano 2+
 * SMTP server or MTA (mail transport agent) installed locally to send from
 * Something to deploy
 
-## TODO & KNOWN ISSUES
+## Todo & Known Issues
 
 * displays the release times in UTC (Capistrano default) - could be flipped to specified time zone
 * some stuff will probably break on windows - patches welcome
 
-## INSTALL
+## Install
 
 Add this line to your application's `Gemfile`:
 
@@ -76,13 +76,13 @@ Or install it manually:
 
     $ gem install cap_gun
 
-## URLS
+## URLs
 
 * Log bugs, issues, and suggestions at GitHub: http://github.com/relevance/cap_gun/issues
 * View source: http://github.com/relevance/cap_gun
 * SDocs: http://relevance.github.com/cap_gun/
 
-== LICENSE
+== License
 
 (The MIT License)
 
