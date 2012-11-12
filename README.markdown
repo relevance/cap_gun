@@ -26,6 +26,9 @@ ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true
 }
 
+# define a repository url to provide a link in the email (optional)
+set :repository_url, "https://github.com/example/my-project"
+
 # define the options for the actual emails that go out -- :recipients is the only required option
 set :cap_gun_email_envelope, {
   :recipients => %w[joe@example.com, jane@example.com],

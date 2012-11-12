@@ -113,4 +113,16 @@ describe CapGun::Presenter do
 
   end
 
+  describe "repository" do
+
+    it "returns the :repository_url variable if set" do
+      CapGun::Presenter.new({:repository_url => "foo"}).repository.should == "foo"
+    end
+
+    it "returns the :repository variable otherwise" do
+      CapGun::Presenter.new({:repository => "bar"}).repository.should == "bar"
+    end
+
+  end
+
 end
