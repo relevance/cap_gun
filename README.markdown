@@ -13,7 +13,7 @@ Setup and configuration are done entirely inside your deploy.rb file to keep it 
 In your Capistrano config file (usually `deploy.rb`):
 
 ```ruby
-require 'cap_gun'
+require "cap_gun"
 
 # setup action mailer (if not done in rails environment already)
 ActionMailer::Base.smtp_settings = {
@@ -85,7 +85,7 @@ Or install it manually:
 * View source: http://github.com/relevance/cap_gun
 * SDocs: http://relevance.github.com/cap_gun/
 
-== License
+## License
 
 (The MIT License)
 
