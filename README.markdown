@@ -19,7 +19,7 @@ require 'cap_gun'
 ActionMailer::Base.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
-  :domain               => 'example.com',
+  :domain               => "example.com",
   :user_name            => "<username>",
   :password             => "<password>",
   :authentication       => "plain",
@@ -28,8 +28,8 @@ ActionMailer::Base.smtp_settings = {
 
 # define the options for the actual emails that go out -- :recipients is the only required option
 set :cap_gun_email_envelope, {
-  :from => "project.deployer@example.com", # Note, don't use the form "Someone project.deploy@example.com" as it'll blow up with ActionMailer 2.3+
-  :recipients => %w[joe@example.com, jane@example.com]
+  :recipients => %w[joe@example.com, jane@example.com],
+  :from       => "project.deployer@example.com"
 }
 
 # register email as a callback after restart
