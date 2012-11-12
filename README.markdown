@@ -10,30 +10,33 @@ Setup and configuration are done entirely inside your deploy.rb file to keep it 
 
 ## CONFIG
 
-In your Capistrano config file (usually deploy.rb):
+In your Capistrano config file (usually `deploy.rb`):
 
-    # require cap_gun (the path will depend on where you unpacked or if you are just using it as a gem)
-    require 'vendor/plugins/cap_gun/lib/cap_gun' # typical Rails vendor/plugins location
+```ruby
+require 'cap_gun'
 
-    # setup action mailer with a hash of options
-    set :cap_gun_action_mailer_config, {
-      :address => "smtp.gmail.com",
-      :port => 587,
-      :user_name => "[YOUR_USERNAME]@gmail.com",
-      :password => "[YOUR_PASSWORD]",
-      :authentication => :plain
-    }
+# setup action mailer (if not done in rails environment already)
+ActionMailer::Base.smtp_settings = {
+  :address              => "smtp.gmail.com",
+  :port                 => 587,
+  :domain               => 'example.com',
+  :user_name            => "<username>",
+  :password             => "<password>",
+  :authentication       => "plain",
+  :enable_starttls_auto => true
+}
 
-    # define the options for the actual emails that go out -- :recipients is the only required option
-    set :cap_gun_email_envelope, {
-      :from => "project.deployer@example.com", # Note, don't use the form "Someone project.deploy@example.com" as it'll blow up with ActionMailer 2.3+
-      :recipients => %w[joe@example.com, jane@example.com]
-    }
+# define the options for the actual emails that go out -- :recipients is the only required option
+set :cap_gun_email_envelope, {
+  :from => "project.deployer@example.com", # Note, don't use the form "Someone project.deploy@example.com" as it'll blow up with ActionMailer 2.3+
+  :recipients => %w[joe@example.com, jane@example.com]
+}
 
-    # register email as a callback after restart
-    after "deploy:restart", "cap_gun:email"
+# register email as a callback after restart
+after "deploy:restart", "cap_gun:email"
+```
 
-    # Test everything out by running "cap cap_gun:email"
+Test everything out by running `cap cap_gun:email`.
 
 ## USAGE
 
@@ -44,12 +47,12 @@ By default CapGun includes info like the user who is deploying and what server i
 Want to make the notifications even better and explain _why_ you're deploying?
 Just include a comment in the cap command like so, and CapGun will add the comment to the email notification.
 
-    cap -s comment="fix for bug #303" deploy
+    $ cap -s comment="fix for bug #303" deploy
 
 ## REQUIREMENTS
 
 * Capistrano 2+
-* A Gmail account to send from, or an MTA (mail transport agent) installed locally to send from
+* SMTP server or MTA (mail transport agent) installed locally to send from
 * Something to deploy
 
 ## TODO & KNOWN ISSUES

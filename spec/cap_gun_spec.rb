@@ -2,36 +2,6 @@ require "spec_helper"
 
 describe CapGun do
   describe "mail settings" do
-    it "raises if we don't have settings" do
-      capistrano = double(:cap_gun_action_mailer_config => nil)
-
-      expect {
-        CapGun::Mailer.load_mailer_config(capistrano)
-      }.to raise_error(
-        ArgumentError,
-        "You must define ActionMailer settings in 'cap_gun_action_mailer_config'"
-      )
-    end
-
-    it "gets action mailer config from capistrano" do
-      capistrano = double(
-        :cap_gun_action_mailer_config => {
-          :account  => "foo@gmail.com",
-          :password => "password"
-        },
-        :exists? => true,
-        :[] => {
-          :recipients => 'foo'
-        }
-      )
-
-      CapGun::Mailer.load_mailer_config(capistrano)
-      ActionMailer::Base.smtp_settings.should == {
-        :account => "foo@gmail.com",
-        :password => "password"
-      }
-    end
-
     it "raises if don't have a cap gun email envelope" do
       capistrano = double(
         :cap_gun_action_mailer_config => {},
