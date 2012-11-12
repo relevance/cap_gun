@@ -8,6 +8,22 @@ Drop your ActionMailer configuration information into your deploy.rb file, confi
 
 Setup and configuration are done entirely inside your deploy.rb file to keep it super simple.  Your emails are sent locally from the box performing the deployment, but CapGun queries the server to grab the necessary release info.
 
+## Install
+
+Add this line to your application's `Gemfile`:
+
+```ruby
+gem "xing-cap_gun"
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it manually:
+
+    $ gem install xing-cap_gun
+
 ## Config
 
 In your Capistrano config file (usually `deploy.rb`):
@@ -62,28 +78,6 @@ Just include a comment in the cap command like so, and CapGun will add the comme
 
 * displays the release times in UTC (Capistrano default) - could be flipped to specified time zone
 * some stuff will probably break on windows - patches welcome
-
-## Install
-
-Add this line to your application's `Gemfile`:
-
-```ruby
-gem "cap_gun"
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it manually:
-
-    $ gem install cap_gun
-
-## URLs
-
-* Log bugs, issues, and suggestions at GitHub: http://github.com/relevance/cap_gun/issues
-* View source: http://github.com/relevance/cap_gun
-* SDocs: http://relevance.github.com/cap_gun/
 
 ## License
 
