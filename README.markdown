@@ -62,8 +62,19 @@ Just include a comment in the cap command like so, and CapGun will add the comme
 
 ## INSTALL
 
-* `sudo gem install cap_gun`  and gem unpack into your vendor/plugins
-* or just grab the tarball from github (see below)
+Add this line to your application's `Gemfile`:
+
+```ruby
+gem "cap_gun"
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it manually:
+
+    $ gem install cap_gun
 
 ## URLS
 
@@ -95,6 +106,3 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
