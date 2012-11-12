@@ -1,23 +1,15 @@
-begin
-  require 'micronaut/rake_task'
-  Micronaut::RakeTask.new(:examples) do |examples|
-    examples.pattern = 'examples/**/*_example.rb'
-    examples.ruby_opts << '-Ilib -Iexamples'
-  end
+require "rdoc/task"
+require "rspec/core/rake_task"
 
-  Micronaut::RakeTask.new(:rcov) do |examples|
-    examples.pattern = 'examples/**/*_example.rb'
-    examples.rcov_opts = %[-Ilib -Iexamples --exclude "gems/*,/Library/Ruby/*,config/*" --text-summary  --sort coverage]
-    examples.rcov = true
-  end
+Rake::RDocTask.new do |t|
+  t.title = "cap_gun"
+  t.rdoc_dir = "rdoc"
+  t.rdoc_files.include("README*")
+  t.rdoc_files.include("lib/**/*.rb")
 end
 
-require 'rdoc/task'
-Rake::RDocTask.new do |rdoc|
-  rdoc.title = 'cap_gun'
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+RSpec::Core::RakeTask.new do |t|
+  t.rspec_opts = "--color"
 end
 
-task :default => :examples
+task :default => :spec
