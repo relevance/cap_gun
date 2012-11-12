@@ -1,5 +1,5 @@
 # CapGun
-  
+
 ## DESCRIPTION
 
 Tell everyone about your releases!  Send email notification after Capistrano deployments!  Rule the world!
@@ -14,30 +14,30 @@ In your Capistrano config file (usually deploy.rb):
 
     # require cap_gun (the path will depend on where you unpacked or if you are just using it as a gem)
     require 'vendor/plugins/cap_gun/lib/cap_gun' # typical Rails vendor/plugins location
-    
+
     # setup action mailer with a hash of options
     set :cap_gun_action_mailer_config, {
       :address => "smtp.gmail.com",
       :port => 587,
       :user_name => "[YOUR_USERNAME]@gmail.com",
       :password => "[YOUR_PASSWORD]",
-      :authentication => :plain 
+      :authentication => :plain
     }
 
     # define the options for the actual emails that go out -- :recipients is the only required option
-    set :cap_gun_email_envelope, { 
+    set :cap_gun_email_envelope, {
       :from => "project.deployer@example.com", # Note, don't use the form "Someone project.deploy@example.com" as it'll blow up with ActionMailer 2.3+
-      :recipients => %w[joe@example.com, jane@example.com] 
+      :recipients => %w[joe@example.com, jane@example.com]
     }
-    
+
     # register email as a callback after restart
     after "deploy:restart", "cap_gun:email"
-    
+
     # Test everything out by running "cap cap_gun:email"
 
 ## USAGE
 
-Good news: it just works.  
+Good news: it just works.
 
 By default CapGun includes info like the user who is deploying and what server its being deployed to.  CapGun is biased for git (patches accepted for other SCMs), so it will include details like your current branch, the revisions since last deployment, the current commit being deployed.
 
@@ -91,7 +91,7 @@ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
- 
- 
- 
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
