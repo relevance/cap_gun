@@ -83,7 +83,9 @@ Just include a comment in the cap command like so, and CapGun will add the comme
 
 (The MIT License)
 
-Copyright (c) 2009 Relevance, Inc. - http://thinkrelevance.com
+Copyright (c) 2009 [Relevance, Inc.](http://thinkrelevance.com)
+
+Copyright (c) 2012 [XING AG](http://www.xing.com) ([Devblog](http://devblog.xing.com/))
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
