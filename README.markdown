@@ -8,6 +8,10 @@ Drop your ActionMailer configuration information into your deploy.rb file, confi
 
 Setup and configuration are done entirely inside your deploy.rb file to keep it super simple.  Your emails are sent locally from the box performing the deployment, but CapGun queries the server to grab the necessary release info.
 
+## Build status
+
+[![Build Status](https://secure.travis-ci.org/xing/cap_gun.png)](http://travis-ci.org/xing/cap_gun)
+
 ## Install
 
 Add this line to your application's `Gemfile`:
