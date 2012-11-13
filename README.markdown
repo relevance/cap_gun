@@ -59,7 +59,9 @@ set :cap_gun_email_envelope, {
 after "deploy:restart", "cap_gun:email"
 ```
 
-Test everything out by running `cap cap_gun:email`.
+Test everything out by running
+
+    $ cap cap_gun:email
 
 ## Usage
 
