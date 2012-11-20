@@ -35,7 +35,16 @@ In your Capistrano config file (usually `deploy.rb`):
 ```ruby
 require "cap_gun"
 
-# setup action mailer (if not done in rails environment already)
+# Setup ActionMailer (if not done in Rails environment already)
+#
+# See http://api.rubyonrails.org/classes/ActionMailer/Base.html
+# for all available configuration options.
+#
+# Using Sendmail
+# ActionMailer::Base.delivery_method = :sendmail
+#
+# Using SMTP (Gmail example)
+ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
