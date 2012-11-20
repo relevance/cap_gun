@@ -1,3 +1,5 @@
-doc
+.rvmrc
+.rspec
+rdoc
 pkg
-coverage
+Gemfile.lock
